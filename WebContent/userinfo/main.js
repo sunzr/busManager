@@ -111,7 +111,7 @@ $(function(){
 				$.getJSON("function/list/all.mvc",function(funtionList){
 					if(funtionList!=null){
 						for(var i=0;i<funtionList.length;i++){
-							$("div#userfunctions").append("<label class='checkbox-inline'><input type='checkbox' name='funno' value='"+funtionList[i].funno+"'>"+funtionList[i].funname+"</label>");
+							$("div#userfunctions").append("<label class='checkbox-inline'><input type='checkbox' name='functionNos' value='"+funtionList[i].funno+"'>"+funtionList[i].funname+"</label>");
 						}
 					}
 					//取得指定的用户
@@ -119,6 +119,7 @@ $(function(){
 						$("input[name='userid']").val(userdata.userid);
 						$("input[name='password']").val(userdata.password);
 						$("input[name='name']").val(userdata.name);
+						
 						if(userdata.functions!=null){
 							for(var i=0;i<userdata.functions.length;i++){
 								$("input[name='functionNos'][value='"+userdata.functions[i].funno+"']").attr("checked","true");

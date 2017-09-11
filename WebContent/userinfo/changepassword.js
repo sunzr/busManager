@@ -5,7 +5,7 @@
 $(function(){
 	
 	$("input[name='userid']").val(loginUser.userid);
-	
+	$("input[name='name']").val(loginUser.name);
 	$("form#userChangePasswordForm").validate({
 		rules:{
 			oldpassword:{

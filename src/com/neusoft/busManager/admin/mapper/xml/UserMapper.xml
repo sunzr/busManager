@@ -80,5 +80,9 @@
 		)
 	</select>
 	
+	<select id="selectListByFunction" parameterType="_int" resultMap="UserResultMap">
+	   select a.* from UserInfo a inner join functionuser b
+	   on a.USERID=b.USERID where b.FUNNO=#{functionNo}
+	</select>
 </mapper>
 

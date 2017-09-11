@@ -1,5 +1,7 @@
 package com.neusoft.busManager.admin.model;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("Function")
@@ -10,7 +12,8 @@ public class FunctionModel {
 	private String funurl;
 	
 	private LevelManager level;
-	
+	//拥有此功能的用户列表
+	private List<UserModel> users;
 	
 	
 	public LevelManager getLevel() {
@@ -36,6 +39,12 @@ public class FunctionModel {
 	}
 	public void setFunurl(String funurl) {
 		this.funurl = funurl;
+	}
+	public List<UserModel> getUsers() {
+		return users;
+	}
+	public void setUsers(List<UserModel> users) {
+		this.users = users;
 	}
 	
 	

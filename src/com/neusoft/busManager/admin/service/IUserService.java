@@ -1,7 +1,7 @@
 package com.neusoft.busManager.admin.service;
 
 import java.util.List;
-
+import com.neusoft.busManager.admin.model.FunctionModel;
 import com.neusoft.busManager.admin.model.UserModel;
 
 
@@ -39,4 +39,6 @@ public interface IUserService {
 	public void grantFunction(String userid,int functionNo) throws Exception;
 	//为指定的员工授予多个功能
 	public void grantFunctions(String userid,int[] functionNos) throws Exception;
+	//取得指定用户的功能列表
+	public List<FunctionModel> getFunctionsByUser(String userid) throws Exception;
 }

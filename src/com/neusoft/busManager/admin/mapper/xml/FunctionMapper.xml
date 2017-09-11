@@ -13,6 +13,10 @@
 	<resultMap  id="FunctionWithLevelResultMap" type="Function" extends="FunctionResultMap">
 		<association property="level" column="lid" select="com.neusoft.busManager.admin.mapper.ILevelManagerMapper.select"></association>
 	</resultMap>
+			
+	<resultMap id="FunctionCollectionResultMap" type="Function" extends="FunctionWithLevelResultMap" >
+		<collection property="users" column="FUNNO" select="com.neusoft.busManager.admin.mapper.IUserMapper.selectListByFunction"></collection>
+	</resultMap>
 		
 	<select id="select" parameterType="int" resultMap="FunctionResultMap">
 		select * from SystemFunction where FUNNO=#{funno}
@@ -23,7 +27,7 @@
 		select * from SystemFunction
 	</select>
 	<!--  -->	
-	<select id="selectListByUser" parameterType="string" resultMap="FunctionResultMap">
+	<select id="selectListByUser" parameterType="string" resultMap="FunctionWithLevelResultMap">
 		select a.* from SystemFunction a inner join FunctionUser b
 		on a.FUNNO=b.FUNNO where b.USERID=#{userid} 
 	</select>

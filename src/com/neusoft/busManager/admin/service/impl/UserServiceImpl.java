@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.busManager.admin.mapper.IFunctionMapper;
 import com.neusoft.busManager.admin.mapper.IUserMapper;
+import com.neusoft.busManager.admin.model.FunctionModel;
 import com.neusoft.busManager.admin.model.UserModel;
 import com.neusoft.busManager.admin.service.IUserService;
 
@@ -17,6 +19,8 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	private IUserMapper usermapper;
+	@Autowired
+	private IFunctionMapper functionMapper;
 	
 	@Override
 	public void add(UserModel um) throws Exception {
@@ -90,7 +94,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public void changePassword(UserModel um) throws Exception {
-		usermapper.update(um);
+		usermapper.updateForPasswowrd(um);
 	}
 
 	@Override
@@ -114,4 +118,10 @@ public class UserServiceImpl implements IUserService{
 		usermapper.grantFunctions(userid, functionNos);
 	}
 
+	//取得指定员工的功能列表
+	@Override
+	public List<FunctionModel> getFunctionsByUser(String userid) throws Exception {
+		
+		return functionMapper.selectListByUser(userid);
+	}
 }

@@ -11,6 +11,7 @@ import com.neusoft.busManager.admin.model.UserModel;
 import com.neusoft.busManager.admin.service.IUserService;
 import com.neusoft.busManager.util.ResultInfo;
 import com.neusoft.busManager.util.ResultMessage;
+import com.neusoft.busManager.util.UserInfo;
 
 @RequestMapping("/user")
 @RestController
@@ -222,4 +223,19 @@ public class UserController {
 		return users;
 	}
 		
+	@RequestMapping(value="/getfromsession",method=RequestMethod.GET)
+	public UserInfo<UserModel> getFromSession(HttpSession session){
+		UserInfo<UserModel> users=new UserInfo<>();
+		UserModel userModel= (UserModel) session.getAttribute("user");
+		if(userModel==null) {
+			users.setMessage("该用户不存在");
+			users.setResult("N");
+			return users;
+		}else {
+			users.setMessage("操作员已登录");
+			users.setResult("Y");
+			users.setUser(userModel);
+			return users;
+		}
+	}
 }

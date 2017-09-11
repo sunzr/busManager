@@ -13,11 +13,9 @@ $(function(){
 		if(userdata!=null){
 			$("span#userid").html(userdata.userid);
 			$("span#username").html(userdata.name);
-			$("span#usersex").html(userdata.sex);
-			$("span#loginstatus").html(userdata.loginStatus);
 			if(userdata.functions!=null){
 				for(var i=0;i<userdata.functions.length;i++){
-					$("span#userfunctions").append(" "+userdata.functions[i].name+" " );
+					$("span#userfunctions").append(" "+userdata.functions[i].funname+" " );
 				}
 			}
 		}
