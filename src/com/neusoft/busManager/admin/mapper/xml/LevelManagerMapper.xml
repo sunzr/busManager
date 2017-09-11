@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.admin.mapper.ILevelManagerMapper">
+
+	<resultMap id="LevelResultMap" type="Level" >
+		<id property="lid" column="lid" />
+		<result property="lname" column="lname"/>
+	</resultMap>
+		
+
+	<select id="select" parameterType="int" resultMap="LevelResultMap">
+		select * from levelmanager where lid=#{lid}
+	</select>
+	
+	<select id="selectByName" parameterType="string" resultMap="LevelResultMap">
+		select * from levelmanager where lname=#{lname}
+	</select>
+	
+	<select id="selectListByAll" resultMap="LevelResultMap">
+		select * from levelmanager
+	</select>
+
+	<select id="selectCountByAll" resultType="int">
+		select count(lid) from levelmanager
+	</select>
+	
+	
+	<select id="selectListByAllWithPage" resultMap="LevelResultMap">
+		select * from levelmanager
+	</select>
+	
+	<insert id="add" parameterType="Level">
+		INSERT INTO levelmanager(lid,lname) 
+		VALUES(#{lid},#{lname})
+	</insert>
+	
+	<delete id="delete" parameterType="Level">
+		delete from levelmanager where lid=#{lid}
+	</delete>
+</mapper>
+

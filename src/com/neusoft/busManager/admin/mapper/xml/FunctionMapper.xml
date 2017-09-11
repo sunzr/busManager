@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.admin.mapper.IFunctionMapper">
+
+	<resultMap id="FunctionResultMap" type="Function" >
+		<id property="funno" column="FUNNO" />
+		<result property="funname" column="FUNNAME"/>
+		<result property="funurl" column="FUNURL"/>
+
+	</resultMap>
+	<resultMap  id="FunctionWithLevelResultMap" type="Function" extends="FunctionResultMap">
+		<association property="level" column="lid" select="com.neusoft.busManager.admin.mapper.ILevelManagerMapper.select"></association>
+	</resultMap>
+		
+	<select id="select" parameterType="int" resultMap="FunctionResultMap">
+		select * from SystemFunction where FUNNO=#{funno}
+	</select>
+	
+	
+	<select id="selectListByAll" resultMap="FunctionWithLevelResultMap">
+		select * from SystemFunction
+	</select>
+	<!--  -->	
+	<select id="selectListByUser" parameterType="string" resultMap="FunctionResultMap">
+		select a.* from SystemFunction a inner join FunctionUser b
+		on a.FUNNO=b.FUNNO where b.USERID=#{userid} 
+	</select>
+
+	<insert id="grant">
+	INSERT INTO functionuser
+	select FUNNO,USERID
+	from (
+	<foreach collection="userids" item="userid" separator="UNION ALL">
+		select #{functionNo} as FUNNO,#{userid} as USERID from dual 
+	</foreach>	
+	) as db
+	</insert>
+</mapper>
+

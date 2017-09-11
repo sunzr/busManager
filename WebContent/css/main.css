@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+.panel,.panel-default{
+	margin:0px;
+	padding:0px;
+}
+.page-wrapper {
+	margin:0px;
+	padding:0px;
+}
+.container-fluid {
+	margin:0px;
+	padding:0px;
+}

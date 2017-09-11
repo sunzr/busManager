@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.admin.mapper.IUserMapper">
+
+	<resultMap id="UserResultMap" type="User" >
+		<id property="userid" column="USERID" />
+		<result property="password" column="PASSWORD"/>
+		<result property="name" column="NAME"/>
+	</resultMap>
+	
+	<resultMap id="UserCollectionResultMap" type="User" extends="UserResultMap">
+		<collection property="functions" column="USERID" select="com.neusoft.busManager.admin.mapper.IFunctionMapper.selectListByUser" ></collection>
+	</resultMap>
+	
+	<insert id="insert" parameterType="User">
+		INSERT INTO UserInfo(USERID,PASSWORD,NAME) 
+		VALUES(#{userid},#{password},#{name})
+	</insert>
+	
+	<insert id="grantFunction">
+		INSERT INTO functionUser values(#{userid},#{functionNo})
+	</insert>
+	
+	<insert id="grantFunctions">
+	INSERT INTO functionUser
+	select FUNNO,USERID
+	from (
+	<foreach collection="functionNos" item="funno" separator="UNION ALL">
+		select #{funno} as FUNNO,#{userid} as USERID from dual 
+	</foreach>	
+	) db
+	</insert>
+	
+	<update id="update" parameterType="User">
+		update UserInfo set PASSWORD=#{password},NAME=#{name}
+		where USERID=#{userid}
+	</update>
+	
+	<!-- 只修改操作员的密码 -->
+	<update id="updateForPasswowrd" parameterType="User">
+	   update UserInfo set PASSWORD=#{password}
+		where USERID=#{userid}
+	</update>
+	
+	<delete id="delete" parameterType="User">
+		delete from UserInfo where USERID=#{userid}
+	</delete>
+
+	<select id="select" parameterType="string" resultMap="UserCollectionResultMap">
+		select * from UserInfo where USERID=#{userid}
+	</select>
+	
+	<select id="selectListByAll" resultMap="UserResultMap">
+		select * from UserInfo
+	</select>
+	
+	<select id="selectListByAllWithPage" resultMap="UserResultMap">
+		select * from UserInfo
+	</select>
+	<select id="selectCountByAll" resultType="int">
+		select count(USERID) from UserInfo
+	</select>
+
+	<select id="selectWithoutFunction" parameterType="string" resultMap="UserResultMap">
+		SELECT
+		*
+		FROM
+		userinfo
+		WHERE
+		NAME NOT IN (
+		SELECT DISTINCT
+		u. NAME
+		FROM
+		userinfo u
+		LEFT JOIN functionuser f ON u.userid = f.userid
+		WHERE
+		f.FunNo = #{funno}
+		)
+	</select>
+	
+</mapper>
+

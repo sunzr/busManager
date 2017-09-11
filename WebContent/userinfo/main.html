@@ -1,0 +1,36 @@
+<script type="text/javascript" src="userinfo/main.js"></script>
+
+
+<div class="row" style="background-color:#DDD">
+	      <div class="col-md-6">系统操作员维护</div>
+	      <div class="col-md-6 text-right"  >
+	        <a href="#" id="userAddLink" class="btn btn-default">增加</a>
+	        <a href="#" id="userModifyLink" class="btn btn-default">修改</a>
+	        <a href="#" id="userDeleteLink" class="btn btn-default">删除</a>
+	        <a href="#" id="userViewLink" class="btn btn-default">查看</a>
+	      </div>
+</div>
+<div class="row">
+   <div class="col-md-12">
+   		<table id="userGrid"></table>
+    	<div id="userGridPager"></div>
+   </div>
+
+</div>	      
+
+
+<div class="modal" id="UserInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="modelbody">
+            
+            
+            </div>
+           
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

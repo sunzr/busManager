@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.feeinfo.mapper.IPayTypeMapper">
+
+	<resultMap id="PayTypeResultMap" type="PayType">
+		<id property="typeno" column="typeno" />
+		<result property="typename" column="typename" />
+		<result property="payfee" column="PayFee" />
+		<result property="payto" column="PayTo" />
+	</resultMap>
+
+	<insert id="insert" parameterType="PayType">
+		INSERT INTO
+		PayType(TYPENAME,PayFee,PayTo)
+		VALUES(#{typename},#{payfee},#{payto})
+	</insert>
+
+
+
+
+	<update id="update" parameterType="PayType">
+		update paytype set
+		TYPENAME=#{typename},PAYFEE=#{payfee},PayTo=#{payto}
+		where
+		typeno=#{typeno}
+	</update>
+
+
+
+	<delete id="delete" parameterType="PayType">
+		delete from PayType where
+		typeno=#{typeno}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="PayTypeResultMap">
+		select * from
+		PayType where typeno=#{typeno}
+	</select>
+
+	<select id="selectListByAll" resultMap="PayTypeResultMap">
+		select * from PayType
+	</select>
+
+	<select id="selectListByAllWithPage" resultMap="PayTypeResultMap">
+		select * from
+		PayType
+	</select>
+
+	<select id="selectCountByAll" resultType="int">
+		select count(typeno)
+		from PayType
+	</select>
+
+</mapper>
+

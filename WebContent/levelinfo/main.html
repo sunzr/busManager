@@ -1,0 +1,36 @@
+<script type="text/javascript" src="levelinfo/main.js"></script>
+
+
+<div class="row" style="background-color:#DDD">
+	      <div class="col-md-6">系统操作员维护</div>
+	      <div class="col-md-6 text-right"  >
+	        <a href="#" id="levelAddLink" class="btn btn-default">增加</a>
+	        <a href="#" id="levelModifyLink" class="btn btn-default">修改</a>
+	        <a href="#" id="levelDeleteLink" class="btn btn-default">删除</a>
+	        <a href="#" id="levelViewLink" class="btn btn-default">查看</a>
+	      </div>
+</div>
+<div class="row">
+   <div class="col-md-12">
+   		<table id="levelGrid"></table>
+    	<div id="levelGridPager"></div>
+   </div>
+
+</div>	      
+
+
+<div class="modal" id="levelInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="modelbody">
+            
+            
+            </div>
+           
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
