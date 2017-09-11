@@ -71,4 +71,19 @@ public class PayTypeServiceImpl implements IPayTypeService {
 	public boolean checkPayTypeExist(String PayTypeid) throws Exception {
 		return false;
 	}
+
+	@Override
+	public boolean checkNameExist(String name) throws Exception {
+		if(PayTypemapper.checkNameExist(name)>0){
+			return true; 
+		}else{
+			return false; 
+		}
+	}
+
+	@Override
+	public boolean checkCanDelete(int typeno) throws Exception {
+		//暂无关联的外键，可删除
+		return true;
+	}
 }

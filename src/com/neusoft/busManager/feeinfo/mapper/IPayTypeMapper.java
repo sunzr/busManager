@@ -31,4 +31,7 @@ public interface IPayTypeMapper {
 	// 取得操作员个数
 	public int selectCountByAll() throws Exception;
 
+	// 校验缴费类型名称是否存在
+	public int checkNameExist(String name) throws Exception;
+
 }
