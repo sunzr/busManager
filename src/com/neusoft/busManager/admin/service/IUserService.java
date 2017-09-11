@@ -41,4 +41,5 @@ public interface IUserService {
 	public void grantFunctions(String userid,int[] functionNos) throws Exception;
 	//取得指定用户的功能列表
 	public List<FunctionModel> getFunctionsByUser(String userid) throws Exception;
+	public void revoleFunctions(String userid);
 }

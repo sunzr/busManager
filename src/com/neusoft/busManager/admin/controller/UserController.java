@@ -42,6 +42,10 @@ public class UserController {
 	{
 		ResultMessage result=new ResultMessage();
 		userService.modify(um);
+		userService.revoleFunctions(um.getUserid());
+		if(functionNos!=null){
+			userService.grantFunctions(um.getUserid(), functionNos);
+		}
 		result.setResult("Y");
 		result.setMessage("修改系统操作员成功");
 		return result;

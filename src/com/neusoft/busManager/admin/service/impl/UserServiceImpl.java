@@ -124,4 +124,9 @@ public class UserServiceImpl implements IUserService{
 		
 		return functionMapper.selectListByUser(userid);
 	}
+
+	@Override
+	public void revoleFunctions(String userid) {
+		usermapper.revoleFunctions(userid);		
+	}
 }
