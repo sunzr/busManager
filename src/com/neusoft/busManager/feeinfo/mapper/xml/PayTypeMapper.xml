@@ -52,6 +52,18 @@
 		select count(typeno)
 		from PayType
 	</select>
+	
+	<select id="checkNameExist" parameterType="string" resultType="int">
+		select count(typeno)
+		from PayType
+		<where>
+		  <if test="_parameter !=null">
+		   and typename=#{_parameter}
+		  </if>
+		</where> 
+	</select>
+	
+	
 
 </mapper>
 

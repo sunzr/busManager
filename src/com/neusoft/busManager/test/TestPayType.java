@@ -1,5 +1,7 @@
 package com.neusoft.busManager.test;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -54,6 +56,22 @@ public class TestPayType {
 		IPayTypeService payTypeService = ac.getBean("PayTypeService", IPayTypeService.class);
 		PayTypeModel ptm = payTypeService.get(2);
 		System.out.println(ptm.getTypename());
+	}
+	@Test
+	public void testGetAll() throws Exception {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("context.xml");
+		IPayTypeService payTypeService = ac.getBean("PayTypeService", IPayTypeService.class);
+		List<PayTypeModel> list = payTypeService.getListByAll();
+		for (PayTypeModel ptm : list) {
+			System.out.println(ptm.getTypename());
+		}
+	}
+	@Test
+	public void testCheckNameExist() throws Exception {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("context.xml");
+		IPayTypeService payTypeService = ac.getBean("PayTypeService", IPayTypeService.class);
+		boolean checkNameExist = payTypeService.checkNameExist("停");
+		System.out.println(checkNameExist);
 	}
 
 }

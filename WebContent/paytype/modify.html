@@ -1,0 +1,37 @@
+
+ <form id="paytypeModifyForm" role="form" class="form-horizontal" action="paytype/modify.mvc" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="typename">缴费类型名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="typename" id="typename" />
+            </div>
+          
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="payfee">缴费金额标准</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="payfee" id="payfee" />
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="payto">缴费接收单位</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="payto" id="payto" />
+            </div>
+            
+        </div>
+     
+        <div class="form-group">
+        	<div class="col-sm-6">
+        	    <input type="hidden" name="typeno">
+                <input type="submit" class="form-control" value="提交" />
+            </div>
+            <div class="col-sm-6">
+                <input type="button" class="form-control" value="取消" />
+            </div>
+        </div> 
+         
+    </fieldset>
+</form>
