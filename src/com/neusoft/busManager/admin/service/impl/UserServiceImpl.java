@@ -1,8 +1,23 @@
 package com.neusoft.busManager.admin.service.impl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -123,5 +138,66 @@ public class UserServiceImpl implements IUserService{
 	public List<FunctionModel> getFunctionsByUser(String userid) throws Exception {
 		
 		return functionMapper.selectListByUser(userid);
+	}
+
+	@Override
+	public void importFromExcel(InputStream excelFile) throws Exception {
+		//打开上传的excel文件
+		Workbook wb = WorkbookFactory.create(excelFile);
+		//取得第1个sheet
+		Sheet sheet=wb.getSheetAt(0);
+		for (Row row : sheet) {
+            if(row.getRowNum()!=0){
+            	Cell c0=row.getCell(0);
+            	int userid=(int) c0.getNumericCellValue();
+            	Cell c1=row.getCell(1);
+            	int password=(int) c1.getNumericCellValue();
+            	Cell c2=row.getCell(2);
+            	String name=c2.getStringCellValue();
+
+
+            	UserModel user=new UserModel();
+            	user.setUserid(String.valueOf(userid));
+            	user.setPassword(String.valueOf(password));
+            	user.setName(name);
+            	this.add(user);
+            }
+            
+        }
+		wb.close();
+		excelFile.close();
+	}
+
+	@Override
+	public void exportToExcel(File source, File exportFile) throws Exception {
+		//打开excel模板文件
+		Workbook wb = WorkbookFactory.create(source);
+		//取得第1个sheet
+		Sheet sheet=wb.getSheetAt(0);
+		//取得所有的小区列表
+		List<UserModel> userList=usermapper.selectListByAll();
+
+		
+		int i=1;
+		for(UserModel user:userList){
+			Row row = sheet.createRow(i);
+			Cell c0 = row.createCell(0);
+			c0.setCellValue(user.getUserid());
+			
+			Cell c1 = row.createCell(1);
+			c1.setCellValue(user.getPassword());
+
+			Cell c2 = row.createCell(2);
+			c2.setCellValue(user.getName());
+			i++;
+		}
+		
+		FileOutputStream fileOut = new FileOutputStream(exportFile);
+		wb.write(fileOut);
+		fileOut.close();
+		
+		wb.close();
+		
+		
 	}
 }

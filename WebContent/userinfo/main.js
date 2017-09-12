@@ -217,5 +217,39 @@ $(function(){
 		}
 	});
 	
+	//点击导入处理
+	$("a#userImportLink").on("click",function(){
+		$("#ModalLabel").html("导入用户");
+		$("#modelbody").load("userinfo/import.html",function(){
+			$("input[type='button'][value='取消']").on("click",function(){
+				 $('#UserInfoModal').modal("hide");
+			});
+			
+			$("form#userImportForm").ajaxForm(function(data){
+				if(data.result=="Y"){
+					 $("#UserInfoModal").trigger("reloadGrid");
+				}
+				BootstrapDialog.alert({title:"提示",message:data.message});
+				$('#UserInfoModal').modal("hide");
+			});
+			
+			 
+		});
+		$("div.modal-dialog").css("width","600px");
+		$('#UserInfoModal').modal("show");
+	});
+	
+	//点击导出处理
+	$("a#userExportLink").on("click",function(){
+		$("#ModalLabel").html("导出用户");
+		$("#modelbody").load("userinfo/export.html",function(){
+			$("input[type='button'][value='关闭']").on("click",function(){
+				 $('#UserInfoModal').modal("hide");
+			})
+			 
+		});
+		$("div.modal-dialog").css("width","600px");
+		$('#UserInfoModal').modal("show");
+	});
 	
 });

@@ -1,12 +1,24 @@
 package com.neusoft.busManager.admin.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.neusoft.busManager.admin.model.UserModel;
 import com.neusoft.busManager.admin.service.IUserService;
 import com.neusoft.busManager.util.ResultInfo;
@@ -237,5 +249,51 @@ public class UserController {
 			users.setUser(userModel);
 			return users;
 		}
+	}
+	
+	@RequestMapping(value="/import",method=RequestMethod.POST)
+	public ResultMessage importFromExcel(@RequestPart MultipartFile importfile) throws Exception
+	{
+		 ResultMessage result=new ResultMessage();
+		 if(importfile!=null&&(!importfile.isEmpty())){
+			 userService.importFromExcel(importfile.getInputStream());
+			 result.setResult("Y");
+			 result.setMessage("导入操作员成功");
+		 }
+		 else{
+			 result.setResult("N");
+			 result.setMessage("没有上传导入Excel文件");
+		 }
+		 return result;
+		
+	}
+	
+	@RequestMapping(value="/exporttoexcel",method=RequestMethod.GET)
+	public ResponseEntity<byte[]>  exportToExcel(HttpSession session) throws Exception
+	{
+		ServletContext application=session.getServletContext();
+		String sourcepath=application.getRealPath("/excelexport/userexport.xlsx");
+		String exportfilepath=application.getRealPath("/download/exportexcel"+(int)(Math.random()*1000)+".xlsx");
+		
+		
+		userService.exportToExcel(new File(sourcepath),new File(exportfilepath));
+		
+		String mainType="application";
+		
+		String subType="vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		String fileName=new String("操作员导出.xlsx".getBytes("UTF-8"),"iso-8859-1");
+		
+		InputStream in=new FileInputStream(exportfilepath);
+		byte[] data=new byte[in.available()];
+		in.read(data, 0, data.length);
+		in.close();
+		HttpHeaders headers=new HttpHeaders();
+		headers.setContentDispositionFormData("attachment", fileName);
+		headers.setContentType(new MediaType(mainType,subType));
+		File excelFile=new File(exportfilepath);
+		excelFile.delete();
+		
+		return new ResponseEntity<byte[]>(data,headers,HttpStatus.CREATED);
+		
 	}
 }

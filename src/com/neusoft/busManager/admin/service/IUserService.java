@@ -1,6 +1,14 @@
 package com.neusoft.busManager.admin.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 import com.neusoft.busManager.admin.model.FunctionModel;
 import com.neusoft.busManager.admin.model.UserModel;
 
@@ -41,4 +49,6 @@ public interface IUserService {
 	public void grantFunctions(String userid,int[] functionNos) throws Exception;
 	//取得指定用户的功能列表
 	public List<FunctionModel> getFunctionsByUser(String userid) throws Exception;
+	public void importFromExcel(InputStream inputStream) throws Exception ;
+	public void exportToExcel(File file, File file2) throws Exception;
 }
