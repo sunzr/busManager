@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.repairinfo.mapper.IRepairTypeMapper">
+	<resultMap id="RepairTypeResultMap" type="RepairType">
+		<id property="typeNo" column="TYPENO"/>
+		<result property="typeName" column="TYPENAME"/>
+		<result property="typeDesc" column="TYPEDESC"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="RepairType">
+		insert into repairType(TYPENO,TYPENAME,TYPEDESC) 
+		values(#{typeNo},#{typeName},#{typeDesc})
+	</insert>
+	
+	<update id="update" parameterType="RepairType">
+		update repairType set TYPENAME=#{typeName},TYPEDESC=#{typeDesc}
+		where TYPENO=#{typeNo}
+	</update>
+	
+	<delete id="delete" parameterType="RepairType">
+		delete from repairType where TYPENO=#{typeNo}
+	</delete>
+	
+	<select id="select" parameterType="int" resultMap="RepairTypeResultMap">
+		select * from repairType where TYPENO=#{typeNo}
+	</select>
+	
+	<select id="selectListByAll" resultMap="RepairTypeResultMap">
+		select * from repairType 
+	</select>
+	
+	<select id="selectListByAllWithPage" resultMap="RepairTypeResultMap">
+		select * from repairType
+	</select>
+	
+	<select id="selectCountByAll" resultType="int">
+		select count(TYPENO) from repairType
+	</select>
+</mapper>  

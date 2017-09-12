@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.neusoft.busManager.baseinfo.mapper.IBusFactoryMapper">
+  <resultMap id="BusFactoryResultMap" type="BusFactory">
+   <id property="factoryno" column="FactoryNo"/>
+   <result property="factoryname" column="FactoryName"/>
+   <result property="factorydesc" column="FactoryDesc"/>
+  </resultMap>
+  
+  <resultMap id="BusFactoryWithPhotoResultMap" type="BusFactory" extends="BusFactoryResultMap" >
+        <result property="photo" column="photo"/>
+          <result property="PHOTOFILENAME" column="photoFileName"/>
+           <result property="PHOTOCONTENTTYPE" column="photoContentType"/>
+     </resultMap>
+     
+  <resultMap id="BusFactoryWithCollectionResultMap" type="BusFactory" extends="BusFactoryResultMap" >
+     <!-- 内嵌式Select方式-->
+     <collection property="buses" column="FactoryNo" 
+      select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.selectListByBusFactory">
+      </collection>
+  </resultMap>
+  
+  <insert id="insert" parameterType="BusFactory">
+       insert into BusFactory(FactoryNo,FactoryName,FactoryDesc)
+           values(#{factoryno},#{factoryname},#{factorydesc})
+  </insert>
+  
+  <insert id="insertWithPhoto" parameterType="BusFactory">
+       insert into BusFactory(FactoryNo,FactoryName,FactoryDesc,photo,PHOTOFILENAME,PHOTOCONTENTTYPE)
+           values(#{factoryno},#{factoryname},#{factorydesc},#{photo},#{photoFileName},#{photoContentType})
+  </insert>
+  
+  <update id="update" parameterType="BusFactory">
+      update BusFactory set FactoryName=#{factoryname},FactoryDesc=#{factorydesc}
+      where FactoryNo=#{factoryno}
+  </update>
+     
+     <update id="updateWithPhoto" parameterType="BusFactory">
+      update BusFactory set FactoryName=#{factoryname},FactoryDesc=#{factorydesc},
+       Photo=#{photo},PHOTOFILENAME=#{photoFileName},PHOTOCONTENTTYPE=#{photoContentType}
+      where FactoryNo=#{factoryno}
+  </update>
+  
+   <update id="updateForDeletePhoto" parameterType="BusFactory">
+      update BusFactory set photo=null,PHOTOFILENAME=null,PHOTOCONTENTTYPE=null
+      where FactoryNo=#{factoryno}
+  </update>
+  
+  <delete id="delete" parameterType="BusFactory">
+    delete from BusFactory where FactoryNo=#{factoryno}
+  </delete>
+ 
+  <select id="select" parameterType="int" resultMap="BusFactoryWithCollectionResultMap">
+      select * from BusFactory where FactoryNo=#{factoryno}
+  </select>
+  
+  <select id="selectListByAll" resultMap="BusFactoryResultMap">
+        select * from BusFactory
+  </select>
+     <select id="selectListByAllWithPage" resultMap="BusFactoryResultMap">
+        select * from BusFactory
+  </select>
+  
+  <select id="selectCountByAll" resultType="int">
+       select count(FactoryNo)  from BusFactory
+  </select>
+    
+ </mapper>

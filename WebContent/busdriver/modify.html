@@ -1,0 +1,99 @@
+
+ <form id="busdriverModifyForm" role="form" class="form-horizontal" action="busdriver/modify.mvc" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="busdriverid">司机编号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="driverid" id="busdriverid" readonly/>
+            </div>
+            
+            <label class="col-sm-2 control-label" for="busdrivername">司机姓名</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="dname" id="busdrivername" />
+            </div>
+        </div>
+        
+         <div class="form-group">
+            <label class="col-sm-2 control-label" for="busdriversex">性别</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="sex" id="busdriversex" />
+            </div>   
+            
+            <label class="col-sm-2 control-label" for="busdriverage">年龄</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="age" id="busdriverage" />
+            </div>    
+        </div>
+        
+         <div class="form-group">
+            <label class="col-sm-2 control-label" for="busdriverbirthday">出生日期</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="birthday" id="busdriverbirthday" />
+            </div>   
+            
+            <label class="col-sm-2 control-label" for="busdriverdcard">身份证号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="dcard" id="busdriverdcard" />
+            </div>    
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="busdriverdcode">驾照编号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="dcode" id="busdriverdcode" />
+            </div> 
+              
+            <label class="col-sm-2 control-label" for="busdriverjoindate">入职日期</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="joindate" id="busdriverjoindate" />
+            </div>    
+        </div>
+
+        
+         <div class="form-group">
+            <label class="col-sm-2 control-label" for="busdriverleavedate">离职日期</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="leavedate" id="busdriverleavedate" />
+            </div>    
+            
+             <label class="col-sm-2 control-label" for="busdriverdstatus">当前状态</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="dstatus" id="busdriverdstatus" />
+            </div>  
+             
+        </div>
+        
+        
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="photo">司机信息附件</label>
+            <div class="col-sm-4">
+                <input type="file" class="form-control" name="uploadphoto" id="photo" />  
+        </div>
+        
+         <label class="col-sm-2 control-label" for="startDate">附件修改选择</label>
+            <div class="col-sm-4">
+              	<label class="radio-inline">
+	                <input type="radio" name="photoOption"  value="change" checked>更换
+	            </label>
+	            <label class="radio-inline">
+	                <input type="radio" name="photoOption"  value="keep">保留原附件
+	            </label>
+	            <label class="radio-inline">
+	                <input type="radio" name="photoOption"  value="delete">删除原附件
+	            </label>
+            </div>
+            
+        </div>
+        
+        <div class="form-group">
+        	<div class="col-sm-6">
+                <input type="submit" class="form-control" value="提交" />
+            </div>
+            <div class="col-sm-6">
+                <input type="button" class="form-control" value="取消" />
+            </div>
+        </div> 
+         
+    </fieldset>
+</form>

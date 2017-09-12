@@ -1,0 +1,47 @@
+
+ <form id="bustypeModifyForm" role="form" class="form-horizontal" action="bustype/modify.mvc" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="bustypeno">类型编号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="typeno" id="bustypeno" readonly/>
+            </div>
+            
+            <label class="col-sm-2 control-label" for="bustypename">类型名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="typename" id="bustypename" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="photo">车辆类型附件</label>
+            <div class="col-sm-4">
+                <input type="file" class="form-control" name="uploadphoto" id="photo" />
+            </div>  
+            
+            <label class="col-sm-2 control-label" for="startDate">附件修改选择</label>
+            <div class="col-sm-4">
+              	<label class="radio-inline">
+	                <input type="radio" name="photoOption"  value="change" checked>更换
+	            </label>
+	            <label class="radio-inline">
+	                <input type="radio" name="photoOption"  value="keep">保留原附件
+	            </label>
+	            <label class="radio-inline">
+	                <input type="radio" name="photoOption"  value="delete">删除原附件
+	            </label>
+            </div>
+            
+        </div>
+        
+        <div class="form-group">
+        	<div class="col-sm-6">
+                <input type="submit" class="form-control" value="提交" />
+            </div>
+            <div class="col-sm-6">
+                <input type="button" class="form-control" value="取消" />
+            </div>
+        </div> 
+         
+    </fieldset>
+</form>

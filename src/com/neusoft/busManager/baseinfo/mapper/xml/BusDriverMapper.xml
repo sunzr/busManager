@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper">
+    <resultMap id="BusDriverResultMap" type="BusDriver" >
+      <id property="driverid" column="DriverID"/>
+      <result property="dname" column="Dname"/>
+      <result property="sex" column="SEX"/>
+      <result property="age" column="AGE"/>
+      <result property="birthday" column="Birthday"/>
+      <result property="dcard" column="DCARD"/>
+      <result property="dcode" column="DCODE"/>
+      <result property="joindate" column="JoinDate"/>
+      <result property="leavedate" column="LeaveDate"/>
+      <result property="dstatus" column="DStatus"/>
+    </resultMap>
+    
+    <resultMap id="BusDriverWithPhotoResultMap" type="BusDriver" extends="BusDriverResultMap" >
+        <result property="photo" column="photo"/>
+          <result property="PHOTOFILENAME" column="photoFileName"/>
+           <result property="PHOTOCONTENTTYPE" column="photoContentType"/>
+     </resultMap>
+     
+     
+    <insert id="insert" parameterType="BusDriver">
+        insert into BusDriver(DriverID,Dname,SEX,AGE,Birthday,DCARD,DCODE,JoinDate,LeaveDate,DStatus)
+          values(#{driverid},#{dname},#{sex},#{age},#{birthday},#{dcard},#{dcode},#{joindate},#{leavedate},#{dstatus})
+    </insert>
+    
+     <insert id="insertWithPhoto" parameterType="BusDriver">
+        insert into BusDriver(DriverID,Dname,SEX,AGE,Birthday,DCARD,DCODE,JoinDate,
+                                 LeaveDate,DStatus,photo,PHOTOFILENAME,PHOTOCONTENTTYPE)
+       values(#{driverid},#{dname},#{sex},#{age},#{birthday},#{dcard},
+          #{dcode},#{joindate},#{leavedate},#{dstatus},#{photo},#{photoFileName},#{photoContentType})
+    </insert>
+    
+    <update id="update" parameterType="BusDriver">
+       update BusDriver set Dname=#{dname},SEX=#{sex},AGE=#{age},Birthday=#{birthday},
+           DCARD=#{dcard},DCODE=#{dcode},JoinDate=#{joindate},LeaveDate=#{leavedate},DStatus=#{dstatus}
+            where DriverID=#{driverid}
+    </update>
+    
+    <update id="updateWithPhoto" parameterType="BusDriver">
+       update BusDriver set Dname=#{dname},SEX=#{sex},AGE=#{age},Birthday=#{birthday},
+           DCARD=#{dcard},DCODE=#{dcode},JoinDate=#{joindate},LeaveDate=#{leavedate},DStatus=#{dstatus},
+           Photo=#{photo},PHOTOFILENAME=#{photoFileName},PHOTOCONTENTTYPE=#{photoContentType}
+            where DriverID=#{driverid}
+    </update>
+    
+      <!-- 删除司机信息的附件信息 -->
+     <update id="updateForDeletePhoto" parameterType="BusDriver">
+       update BusDriver set photo=null,PHOTOFILENAME=null,PHOTOCONTENTTYPE=null
+            where DriverID=#{driverid}
+    </update>
+    
+    
+    <delete id="delete" parameterType="BusDriver">
+      delete from BusDriver where DriverID=#{driverid}
+    </delete>
+    
+    <select id="select" parameterType="String" resultMap="BusDriverResultMap">
+       select * from BusDriver where DriverID=#{driverid}
+    </select>
+    
+    <select id="selectListByAll" resultMap="BusDriverResultMap">
+        select * from BusDriver
+    </select>
+    
+    <select id="selectListByAllWithPage" resultMap="BusDriverResultMap">
+        select * from BusDriver
+    </select>
+    
+   <select id="selectCountByAll" resultType="int">
+      select count(DriverID) from BusDriver
+   </select>
+    
+ </mapper>

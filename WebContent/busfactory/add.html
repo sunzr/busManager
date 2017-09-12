@@ -1,0 +1,41 @@
+
+ <form id="busfactoryAddForm" role="form" class="form-horizontal" action="busfactory/add.mvc" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="busfactoryno">厂家编号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="factoryno" id="busfactoryno" />
+            </div>
+            
+            <label class="col-sm-2 control-label" for="busfactoryname">厂家名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="factoryname" id="busfactoryname" />
+            </div>
+        </div>
+        
+         <div class="form-group">
+            <label class="col-sm-2 control-label" for="busfactorydesc">厂家职责</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="factorydesc" id="busfactorydesc" />
+            </div>      
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="photo">车辆厂家附件</label>
+            <div class="col-sm-4">
+                <input type="file" class="form-control" name="uploadphoto" id="photo" />  
+        </div>
+        
+        </div>
+        
+        <div class="form-group">
+        	<div class="col-sm-6">
+                <input type="submit" class="form-control" value="提交" />
+            </div>
+            <div class="col-sm-6">
+                <input type="button" class="form-control" value="取消" />
+            </div>
+        </div> 
+         
+    </fieldset>
+</form>

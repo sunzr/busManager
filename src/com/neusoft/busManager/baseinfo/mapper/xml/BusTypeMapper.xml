@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.neusoft.busManager.baseinfo.mapper.IBusTypeMapper">
+  <resultMap id="BusTypeResultMap" type="BusType" >
+     <id property="typeno" column="TYPENO"/>
+     <result property="typename" column="TYPENAME"/>
+  </resultMap>
+  
+  <resultMap id="BusTypeWithPhotoResultMap" type="BusType" extends="BusTypeResultMap" >
+        <result property="photo" column="photo"/>
+          <result property="PHOTOFILENAME" column="photoFileName"/>
+           <result property="PHOTOCONTENTTYPE" column="photoContentType"/>
+     </resultMap>
+     
+  <resultMap  id="BusTypeWithCollectionResultMap" type="BusType" extends="BusTypeResultMap">
+    <!-- 内嵌式Select方式-->
+    <collection property="buses" column="TYPENO"
+       select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.selectListByBusType">
+    </collection>
+  </resultMap>
+  
+  <insert id="insert" parameterType="BusType">
+      insert into BusType(TYPENO,TYPENAME) values(#{typeno},#{typename})
+  </insert>
+  
+  <insert id="insertWithPhoto" parameterType="BusType">
+      insert into BusType(TYPENO,TYPENAME,photo,PHOTOFILENAME,PHOTOCONTENTTYPE) 
+      values(#{typeno},#{typename},#{photo},#{photoFileName},#{photoContentType} )
+  </insert>
+  
+  <update id="update" parameterType="BusType">
+     update BusType set TYPENAME=#{typename} where TYPENO=#{typeno}
+  </update>
+  
+  <update id="updateWithPhoto" parameterType="BusType">
+     update BusType set TYPENAME=#{typename},
+      Photo=#{photo},PHOTOFILENAME=#{photoFileName},PHOTOCONTENTTYPE=#{photoContentType}
+      where TYPENO=#{typeno}
+  </update>
+  <!-- 删除车辆类型信息的附件信息 -->
+   <update id="updateForDeletePhoto" parameterType="BusType">
+     update BusType set photo=null,PHOTOFILENAME=null,PHOTOCONTENTTYPE=null
+      where TYPENO=#{typeno}
+  </update>
+  
+  <delete id="delete" parameterType="BusType">
+    delete from BusType where TYPENO=#{typeno}
+  </delete>
+  
+  <select id="select" parameterType="int" resultMap="BusTypeWithCollectionResultMap">
+    select * from BusType where TYPENO=#{typeno}
+  </select>
+  
+  <select id="selectListByAll" resultMap="BusTypeResultMap">
+    select * from BusType
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="BusTypeResultMap">
+      select * from BusType
+  </select>
+  
+  <select id="selectCountByAll" resultType="int">
+       select count(TYPENO) from BusType
+  </select>
+  </mapper>

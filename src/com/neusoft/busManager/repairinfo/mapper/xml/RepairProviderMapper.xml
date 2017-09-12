@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.neusoft.busManager.repairinfo.mapper.IRepairProviderMapper">
+ 	<resultMap type="RepairProvider" id="RepairProviderResultMap">
+ 		<id property="providerNo" column="ProviderNo"/>
+ 		<result property="providerName" column="PName"/>
+ 		<result property="providerContact" column="PContact"/>
+ 		<result property="providerAddress" column="PAddress"/>
+ 		<result property="providerMobile" column="PMobile"/>
+ 		<result property="providerTel" column="PTel"/>
+ 		<result property="providerDesc" column="PDesc"/>
+ 	</resultMap>
+ 	
+ 	<insert id="insert" parameterType="RepairProvider">
+ 		insert into repairProvider(ProviderNo,PName,PContact,PAddress,PMobile,PTel,PDesc)
+ 		values(#{providerNo},#{providerName},#{providerContact},#{providerAddress},#{providerMobile},#{providerTel},#{providerDesc})
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="RepairProvider">
+ 		update repairProvider set PName=#{providerName},PContact=#{providerContact},
+ 		PAddress=#{providerAddress},PMobile=#{providerMobile},PTel=#{providerTel},PDesc=#{providerDesc}
+ 		where ProviderNo=#{providerNo}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="RepairProvider">
+ 		delete from repairProvider where ProviderNo=#{providerNo}
+ 	</delete>
+ 	
+ 	<select id="select" parameterType="int" resultMap="RepairProviderResultMap">
+ 		select * from repairProvider  where ProviderNo=#{providerNo}
+ 	</select>
+ 	
+ 	<select id="selectListByAll" resultMap="RepairProviderResultMap">
+ 		select * from repairProvider
+ 	</select>
+ 	
+ 	<select id="selectListByAllWithPage" resultMap="RepairProviderResultMap">
+ 		select * from repairProvider
+ 	</select>
+ 	
+ 	<select id="selectCountByAll" resultType="int">
+ 		select count(providerNo) from repairProvider
+ 	</select>
+ 	
+ 	
+ 	
+ </mapper>

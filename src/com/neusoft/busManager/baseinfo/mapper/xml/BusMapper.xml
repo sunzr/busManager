@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.neusoft.busManager.baseinfo.mapper.IBusMapper">
+    <resultMap id="BusResultMap" type="Bus">
+       <id property="busid" column="BusID"/>
+       <result property="buscardid" column="BusCardID"/>
+       <result property="vinno" column="VINNO"/>
+       <result property="output" column="Output"/>
+       <result property="seating" column="Seating"/>
+       <result property="totalmileage" column="TotalMileage"/>
+       <result property="bussize" column="BusSize"/>
+       <result property="oilwear" column="Oilwear"/>
+       <result property="wload" column="WLoad"/>
+    </resultMap>
+    <!-- 车辆关联信息映射 -->
+    <resultMap id="BusAssociationResultMap" type="Bus"  extends="BusResultMap">
+       <association property="bustype" column="TYPENO"
+        select="com.neusoft.busManager.baseinfo.mapper.IBusTypeMapper.select" ></association>
+        
+        <association property="busfactory" column="FactoryNo"
+        select="com.neusoft.busManager.baseinfo.mapper.IBusFactoryMapper.select"></association>
+    </resultMap>
+    
+    <insert id="insert" parameterType="Bus">
+      insert into Bus(BusID,BusCardID,VINNO,TYPENO,FactoryNo,Output,Seating,TotalMileage,
+                      BusSize,Oilwear,WLoad)
+          values(#{busid},#{buscardid},#{vinno},#{bustype.typeno},#{busfactory.factoryno},#{output},
+                  #{seating},#{totalmileage},#{bussize},#{oilwear},#{wload})
+    </insert>
+    
+    <insert id="insertWithPhoto" parameterType="Bus">
+      insert into Bus(BusID,BusCardID,VINNO,TYPENO,FactoryNo,Output,Seating,TotalMileage,
+                      BusSize,Oilwear,WLoad)
+          values(#{busid},#{buscardid},#{vinno},#{bustype.typeno},#{busfactory.factoryno},#{output},
+                  #{seating},#{totalmileage},#{bussize},#{oilwear},#{wload})
+    </insert>
+     <update id="update" parameterType="Bus">
+      update Bus set BusCardID=#{buscardid},VINNO=#{vinno},TYPENO=#{bustype.typeno},
+         FactoryNo=#{busfactory.factoryno},Output=#{output},Seating=#{seating},
+         TotalMileage=#{totalmileage},BusSize=#{bussize},Oilwear=#{oilwear},WLoad=#{wload}
+         where BusID=#{busid} 
+     </update>
+     <!--  <update id="update" parameterType="Bus">
+      update Bus set BusCardID=#{buscardid},TYPENO=#{bustype.typeno},
+         FactoryNo=#{busfactory.factoryno}
+         where BusID=#{busid} 
+     </update>
+      -->
+      
+     <delete id="delete" parameterType="Bus">
+     delete from Bus where BusID=#{busid}
+     </delete>
+     
+     <select id="select" parameterType="String" resultMap="BusAssociationResultMap">
+          select * from Bus where  BusID=#{busid}
+     </select>
+     
+     <select id="selectListByAll" resultMap="BusResultMap">
+          select * from Bus
+     </select>
+     
+     <!-- 按车辆类型取得车辆信息 -->
+     <select id="selectListByBusType" parameterType="_int" resultMap="BusResultMap">
+        select * from Bus where TYPENO=#{typeno}
+     </select>
+     
+     <!-- 按车辆厂家编号取得车辆信息 -->
+      <select id="selectListByBusFactory" parameterType="_int" resultMap="BusResultMap">
+         select * from Bus where FactoryNo=#{factoryno}
+      </select>
+     
+     <select id="selectListByCondition" resultMap="BusResultMap">
+         select * from Bus
+         <where>
+           <if test="typeno!=0">
+             and TYPENO=#{typeno}
+           </if>
+            <if test="factoryno!=0">
+             and FactoryNo=#{factoryno}
+           </if>
+         </where>
+     </select>
+     
+     <select id="selectListByAllWithPage" resultMap="BusAssociationResultMap">
+       select a.*,b.*,c.* from Bus a inner join BusType b on a.typeno=b.typeno 
+       inner join BusFactory c on a.FactoryNo=c.FactoryNo           
+     </select>
+     
+     <select id="selectListByConditionWithPage" resultMap="BusAssociationResultMap">
+        select * from Bus
+         <where>
+           <if test="typeno!=0">
+             and TYPENO=#{typeno}
+           </if>
+            <if test="factoryno!=0">
+             and FactoryNo=#{factoryno}
+           </if>
+         </where>
+     </select>
+     
+     <select id="selectCountByAll" resultType="int">
+        select count(BusID) from Bus
+     </select>
+     
+     <!-- 按检索条件取得车辆个数 -->
+     <select id="selectCountByCondition" resultType="_int">
+      select count(*) from Bus
+      <where>
+           <if test="typeno!=0">
+             and TYPENO=#{typeno}
+           </if>
+            <if test="factoryno!=0">
+             and FactoryNo=#{factoryno}
+           </if>
+        </where>
+     </select>
+ </mapper>
