@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.query.mapper.IBusOilInfoMapper">
+	<!-- 楼宇基本信息映射 -->
+	<resultMap id="BusOilInfoMap" type="BusOilInfo" >
+		<id property="infono" column="INFONO" />
+		<result property="oilvolume" column="OilVolume"/>
+		<result property="oilfee" column="OilFee"/>
+		<result property="infodate" column="InfoDate"/>
+		<result property="busmile" column="BusMile"/>
+		
+	</resultMap>
+	<!-- 楼宇关联信息映射 -->
+	<resultMap id="BusOilInfoAssociationResultMap" type="BusOilInfo" extends="BusOilInfoMap" >
+		<!-- 内嵌式Select方式 -->
+		<association property="bus" column="BUSID"  select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select" ></association>
+		<association property="driver" column="DriverID" select="com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper.select"></association>
+	</resultMap>
+	
+	<insert id="insert" parameterType="BusOilInfo">
+		INSERT INTO busoilinfo(BUSID,DriverID,OilVolume,OilFee,InfoDate,BusMile)
+		VALUES(#{bus.busid},#{driver.driverid},#{oilvolume},#{oilfee},#{infodate},#{busmile})
+	</insert>
+	
+	<update id="update" parameterType="BusOilInfo">
+		update busoilinfo set BUSID=#{bus.busid},DriverID=#{driver.driverid},OilVolume=#{oilvolume},
+		OilFee=#{oilfee},InfoDate=#{infodate},BusMile=#{busmile}
+		where INFONO=#{infono}
+	</update>
+	
+	<delete id="delete" parameterType="BusOilInfo">
+		delete from busoilinfo where INFONO=#{infono}
+	</delete>
+	
+	<select id="select" parameterType="int" resultMap="BusOilInfoAssociationResultMap">
+		select * from busoilinfo where INFONO=#{infono}
+	</select>
+	
+	
+	<select id="selectListByAll" resultMap="BusOilInfoMap">
+		select * from busoilinfo
+	</select>
+	
+
+	
+	
+	<select id="selectListByAllWithPage" resultMap="BusOilInfoAssociationResultMap">
+		select a.*,b.*,c.* from busoilinfo a left join bus b on a.busid=b.busid
+		left join busdriver c on a.driverid=c.driverid
+		
+	</select>
+	
+	
+	
+	<select id="selectListByConditionWithPage" resultMap="BusOilInfoAssociationResultMap">
+		select * from busoilinfo
+		<where>
+		<if test="busid!=0">
+		   and busid=#{busid}
+		</if>
+		<if test="driverid!=0">
+		   and driverid=#{driverid}
+		</if>
+		</where>
+		
+	</select>
+	
+	
+	<select id="selectCountByAll" resultType="int">
+		select count(*) from busoilinfo
+	</select>
+	
+	<select id="selectListByBus" parameterType="_int" resultMap="BusOilInfoMap" >
+	  select * from busoilinfo where busid=#{busid}
+	</select>
+	
+	<select id="selectListByDriver" parameterType="_int" resultMap="BusOilInfoMap">
+	 select * from busoilinfo where driverid=#{driverid}
+	</select>
+	<!-- 按检索条件取得楼宇个数 -->
+	<select id="selectCountByCondition" resultType="_int">
+	    select count(*) from busoilinfo
+		<where>
+		<if test="busid!=0">
+		   and busid=#{busid}
+		</if>
+		<if test="driverid!=0">
+		   and driverid=#{driverid}
+		</if>
+		</where>
+		
+	</select>
+	
+	
+	
+
+
+</mapper>
+
