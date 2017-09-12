@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.query.mapper.IIllegalTypeMapper">
+
+	<resultMap id="IllegalTypeResultMap" type="IllegalType" >
+		<id property="typeno" column="TYPENO" />
+		<result property="typename" column="TYPENAME"/>
+		<result property="payscore" column="PayScore"/>
+		<result property="payfee" column="PayFee"/>
+	</resultMap>
+		
+
+	<select id="select" parameterType="int" resultMap="IllegalTypeResultMap">
+		select * from illegaltype where typeno=#{typeno}
+	</select>
+	
+	<select id="selectByName" parameterType="string" resultMap="IllegalTypeResultMap">
+		select * from illegaltype where typename=#{typename}
+	</select>
+	
+	<select id="selectListByAll" resultMap="IllegalTypeResultMap">
+		select * from illegaltype
+	</select>
+
+	<select id="selectCountByAll" resultType="int">
+		select count(typeno) from illegaltype
+	</select>
+	
+	
+	<select id="selectListByAllWithPage" resultMap="IllegalTypeResultMap">
+		select * from illegaltype
+	</select>
+	
+	<insert id="add" parameterType="IllegalType">
+		INSERT INTO illegaltype(typeno,typename,payscore,payfee) 
+		VALUES(#{typeno},#{typename},#{payscore},#{payfee})
+	</insert>
+	
+	<delete id="delete" parameterType="IllegalType">
+		delete from illegaltype where typeno=#{typeno}
+	</delete>
+	
+	<update id="modify" parameterType="IllegalType">
+		update illegaltype set typename=#{typename},payscore=#{payscore},payfee=#{payfee}
+		where typeno=#{typeno}
+	</update>
+</mapper>
+
