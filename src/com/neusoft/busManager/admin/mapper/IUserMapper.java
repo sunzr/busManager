@@ -33,4 +33,5 @@ public interface IUserMapper {
 	public void grantFunctions(@Param("userid") String userid,@Param("functionNos") int[] functionNos) throws Exception;
 	//取得指定功能的用户列表
 	public List<UserModel> selectListByFunction(int functionNo) throws Exception;
+	public void revoleFunctions(String userid);
 }

@@ -197,7 +197,11 @@ public class UserServiceImpl implements IUserService{
 		fileOut.close();
 		
 		wb.close();
+		}
 		
 		
+
+	public void revoleFunctions(String userid) {
+		usermapper.revoleFunctions(userid);		
 	}
 }
