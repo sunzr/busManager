@@ -57,10 +57,10 @@
     <select id="selectListByCondition"  resultMap="BusDayInfoResultMap">
         select * from BusDayInfo
         <where>
-          <if test="busid!=0">
+          <if test="busid!=null">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=0">
+          <if test="driverid!=null">
            and  DriverID=#{driverid}
           </if>
         </where>
@@ -74,10 +74,10 @@
     <select id="selectListByConditionWithPage"  resultMap="BusDayInfoAssociationResultMap">
         select * from BusDayInfo
         <where>
-          <if test="busid!=0">
+          <if test="busid!=null">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=0">
+          <if test="driverid!=null">
            and  DriverID=#{driverid}
           </if>
         </where>
@@ -89,10 +89,10 @@
     <select id="selectCountByCondition" resultType="_int">
     select count(*) from BusDayInfo
      <where>
-          <if test="busid!=0">
+          <if test="busid!=null">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=0">
+          <if test="driverid!=null">
            and  DriverID=#{driverid}
           </if>
         </where>
