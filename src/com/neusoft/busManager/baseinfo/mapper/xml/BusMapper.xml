@@ -5,6 +5,7 @@
  <mapper namespace="com.neusoft.busManager.baseinfo.mapper.IBusMapper">
     <resultMap id="BusResultMap" type="Bus">
        <id property="busid" column="BusID"/>
+        <result property="busname" column="BusName"/>
        <result property="buscardid" column="BusCardID"/>
        <result property="vinno" column="VINNO"/>
        <result property="output" column="Output"/>
@@ -23,31 +24,31 @@
         select="com.neusoft.busManager.baseinfo.mapper.IBusFactoryMapper.select"></association>
     </resultMap>
     
+    <resultMap id="BusCollectionResultMap" type="Bus"  extends="BusResultMap">
+    <collection property="busdayinfo" column="BusID"
+       select="com.neusoft.busManager.queryinfo.mapper.IBusDayInfoMapper.selectListByBus">
+     </collection>
+    </resultMap>
+    
     <insert id="insert" parameterType="Bus">
-      insert into Bus(BusID,BusCardID,VINNO,TYPENO,FactoryNo,Output,Seating,TotalMileage,
+      insert into Bus(BusID,BusName,BusCardID,VINNO,TYPENO,FactoryNo,Output,Seating,TotalMileage,
                       BusSize,Oilwear,WLoad)
-          values(#{busid},#{buscardid},#{vinno},#{bustype.typeno},#{busfactory.factoryno},#{output},
+          values(#{busid},#{busname},#{buscardid},#{vinno},#{bustype.typeno},#{busfactory.factoryno},#{output},
                   #{seating},#{totalmileage},#{bussize},#{oilwear},#{wload})
     </insert>
     
     <insert id="insertWithPhoto" parameterType="Bus">
-      insert into Bus(BusID,BusCardID,VINNO,TYPENO,FactoryNo,Output,Seating,TotalMileage,
+      insert into Bus(BusID,BusName,BusCardID,VINNO,TYPENO,FactoryNo,Output,Seating,TotalMileage,
                       BusSize,Oilwear,WLoad)
-          values(#{busid},#{buscardid},#{vinno},#{bustype.typeno},#{busfactory.factoryno},#{output},
+          values(#{busid},#{busname},#{buscardid},#{vinno},#{bustype.typeno},#{busfactory.factoryno},#{output},
                   #{seating},#{totalmileage},#{bussize},#{oilwear},#{wload})
     </insert>
      <update id="update" parameterType="Bus">
-      update Bus set BusCardID=#{buscardid},VINNO=#{vinno},TYPENO=#{bustype.typeno},
+      update Bus set BusName=#{busname},BusCardID=#{buscardid},VINNO=#{vinno},TYPENO=#{bustype.typeno},
          FactoryNo=#{busfactory.factoryno},Output=#{output},Seating=#{seating},
          TotalMileage=#{totalmileage},BusSize=#{bussize},Oilwear=#{oilwear},WLoad=#{wload}
          where BusID=#{busid} 
      </update>
-     <!--  <update id="update" parameterType="Bus">
-      update Bus set BusCardID=#{buscardid},TYPENO=#{bustype.typeno},
-         FactoryNo=#{busfactory.factoryno}
-         where BusID=#{busid} 
-     </update>
-      -->
       
      <delete id="delete" parameterType="Bus">
      delete from Bus where BusID=#{busid}
@@ -55,6 +56,11 @@
      
      <select id="select" parameterType="String" resultMap="BusAssociationResultMap">
           select * from Bus where  BusID=#{busid}
+     </select>
+     
+     <!-- 关联车辆日运行信息 -->
+     <select id="selectWithBusDayInfo" parameterType="String" resultMap="BusCollectionResultMap">
+          select * from Bus where BusID=#{busid}
      </select>
      
      <select id="selectListByAll" resultMap="BusResultMap">

@@ -1,4 +1,4 @@
-package com.neusoft.busManager.query.controller;
+package com.neusoft.busManager.queryinfo.controller;
 
 import java.util.List;
 
@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.neusoft.busManager.query.model.IllegalTypeModel;
-import com.neusoft.busManager.query.service.IIllegalTypeService;
+
+import com.neusoft.busManager.queryinfo.model.IllegalTypeModel;
+import com.neusoft.busManager.queryinfo.service.IIllegalTypeService;
 import com.neusoft.busManager.util.ResultInfo;
 import com.neusoft.busManager.util.ResultMessage;
 

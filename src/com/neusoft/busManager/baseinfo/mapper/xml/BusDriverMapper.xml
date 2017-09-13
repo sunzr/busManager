@@ -22,6 +22,11 @@
            <result property="PHOTOCONTENTTYPE" column="photoContentType"/>
      </resultMap>
      
+     <resultMap id="BusDriverCollectionResultMap" type="BusDriver" extends="BusDriverResultMap">
+         <collection property="busdayinfo" column="DriverID"
+             select="com.neusoft.busManager.queryinfo.mapper.IBusDayInfoMapper.selectListByBusDriver">
+         </collection>
+     </resultMap>
      
     <insert id="insert" parameterType="BusDriver">
         insert into BusDriver(DriverID,Dname,SEX,AGE,Birthday,DCARD,DCODE,JoinDate,LeaveDate,DStatus)
@@ -59,7 +64,7 @@
       delete from BusDriver where DriverID=#{driverid}
     </delete>
     
-    <select id="select" parameterType="String" resultMap="BusDriverResultMap">
+    <select id="select" parameterType="String" resultMap="BusDriverCollectionResultMap">
        select * from BusDriver where DriverID=#{driverid}
     </select>
     

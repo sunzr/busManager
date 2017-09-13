@@ -1,4 +1,4 @@
-package com.neusoft.busManager.query.service.impl;
+package com.neusoft.busManager.queryinfo.service.impl;
 
 import java.util.List;
 import org.apache.ibatis.session.RowBounds;
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.busManager.query.mapper.IIllegalTypeMapper;
-import com.neusoft.busManager.query.model.IllegalTypeModel;
-import com.neusoft.busManager.query.service.IIllegalTypeService;
+import com.neusoft.busManager.queryinfo.mapper.IIllegalTypeMapper;
+import com.neusoft.busManager.queryinfo.model.IllegalTypeModel;
+import com.neusoft.busManager.queryinfo.service.IIllegalTypeService;
 
 @Service("IIllegalTypeService")
 @Transactional

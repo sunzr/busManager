@@ -1,8 +1,9 @@
-package com.neusoft.busManager.query.mapper;
+package com.neusoft.busManager.queryinfo.mapper;
 
 import java.util.List;
 import org.apache.ibatis.session.RowBounds;
-import com.neusoft.busManager.query.model.IllegalTypeModel;
+
+import com.neusoft.busManager.queryinfo.model.IllegalTypeModel;
 
 
 public interface IIllegalTypeMapper {

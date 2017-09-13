@@ -31,6 +31,7 @@ $(function(){
 		mtype:"POST",		
 		colModel: [
 			{ label: '车辆编号', name: 'busid', width: 100 },
+			{ label: '车辆名称', name: 'busname', width: 100 },
 			{ label: '车牌号', name: 'buscardid', width: 100 },
 			{ label: '车辆类型', name: 'bustype.typename', width: 100 },
 			{ label: '车辆厂家', name: 'busfactory.factoryname', width: 100 }
@@ -77,7 +78,17 @@ $(function(){
 			 $("button[type='reset']").on("click",function(){
 				 $('#busModal').modal("hide");
 			 });
-			
+			//验证增加数据
+			 $("#busAddForm").validate({
+				 rules:{
+					 busname:{
+						 required: true
+					 },
+					 buscardid:{
+						 required:true
+					 }
+				 },
+			 });
 			//取得车辆类型列表，填充车辆类型选择下拉框
 			$.getJSON("bustype/list/all.mvc",function(data){
 					if(data!=null){
@@ -154,6 +165,7 @@ $(function(){
 					//取得车辆的信息
 						$.getJSON("bus/get.mvc",{busid:busId},function(data){
 							$("input[name='busid']").val(data.busid);
+							$("input[name='busname']").val(data.busname);
 							$("input[name='buscardid']").val(data.buscardid);
 							$("select[name='bustype.typeno']").val(data.bustype.typeno);
 							$("select[name='busfactory.factoryno']").val(data.busfactory.factoryno);
@@ -185,6 +197,12 @@ $(function(){
 			BootstrapDialog.alert({title:"提示",message:"请选择要删除的车辆信息"});
 		}
 		else{
+			//检查此对象能否被删除
+			$.getJSON("bus/checkcandelete.mvc",{busid:busId},function(data){
+				if(data.result=="N"){
+					BootstrapDialog.alert({title:"提示",message:'此车辆有关联的车辆日运行信息，不能被删除!'});
+		}
+		else{
 			//让用户确认执行删除操作
 			BootstrapDialog.confirm({
 				title:"删除确认",
@@ -198,6 +216,8 @@ $(function(){
 					BootstrapDialog.alert({title:"提示",message:data.message}); 
 				});
 					}
+				 }
+				});
 				}
 			});
 		}
@@ -214,6 +234,7 @@ $(function(){
 				//取得车辆的信息
 				$.getJSON("bus/get.mvc",{busid:busId},function(data){
 					$("input[name='busid']").val(data.busid);
+					$("input[name='busname']").val(data.busname);
 					$("input[name='buscardid']").val(data.buscardid);
 					$("input[name='bustype.typename']").val(data.bustype.typename);
 					$("input[name='busfactory.factoryname']").val(data.busfactory.factoryname);

@@ -1,12 +1,18 @@
 package com.neusoft.busManager.baseinfo.model;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
+
+import com.neusoft.busManager.queryinfo.model.BusDayInfoModel;
 
 //车辆Model类
 @Alias("Bus")
 public class BusModel {
 	//车辆编号
 	private String busid;
+	//车辆名称
+	private String busname;
 	//车牌号
 	private String buscardid;
 	//车架号
@@ -28,11 +34,21 @@ public class BusModel {
 	//载重量
 	private Double wload;
 	
+	//关联车辆日运行信息对象
+	private List<BusDayInfoModel> busdayinfo;
+	
 	public String getBusid() {
 		return busid;
 	}
 	public void setBusid(String busid) {
 		this.busid = busid;
+	}
+	
+	public String getBusname() {
+		return busname;
+	}
+	public void setBusname(String busname) {
+		this.busname = busname;
 	}
 	public String getBuscardid() {
 		return buscardid;
@@ -93,6 +109,12 @@ public class BusModel {
 	}
 	public void setWload(Double wload) {
 		this.wload = wload;
+	}
+	public List<BusDayInfoModel> getBusdayinfo() {
+		return busdayinfo;
+	}
+	public void setBusdayinfo(List<BusDayInfoModel> busdayinfo) {
+		this.busdayinfo = busdayinfo;
 	}
 
 }

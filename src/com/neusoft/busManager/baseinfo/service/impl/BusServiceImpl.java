@@ -8,17 +8,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.busManager.baseinfo.mapper.IBusMapper;
+import com.neusoft.busManager.baseinfo.model.BusFactoryModel;
 import com.neusoft.busManager.baseinfo.model.BusModel;
 import com.neusoft.busManager.baseinfo.service.IBusService;
+import com.neusoft.busManager.queryinfo.mapper.IBusDayInfoMapper;
 
 //车辆信息的业务实现类
 @Service("BusService")
 @Transactional
 public class BusServiceImpl implements IBusService {
    private IBusMapper ibm=null;
+   private IBusDayInfoMapper ibdm=null;
     @Autowired
 	public void setIbm(IBusMapper ibm) {
 		this.ibm = ibm;
+	}
+    
+    @Autowired
+	public void setIbdm(IBusDayInfoMapper ibdm) {
+		this.ibdm = ibdm;
 	}
 
 	@Override
@@ -40,7 +48,14 @@ public class BusServiceImpl implements IBusService {
 	public BusModel get(String busid) throws Exception {
 		return ibm.select(busid);
 	}
+   
 
+	@Override
+	public BusModel selectWithBusDayInfo(String busid) throws Exception {
+		return ibm.selectWithBusDayInfo(busid);
+	}
+	
+	
 	@Override
 	public List<BusModel> getListByAll() throws Exception {
 		return ibm.selectListByAll();
@@ -94,6 +109,17 @@ public class BusServiceImpl implements IBusService {
 			pageCount=count/rows+1;
 		}
 		return pageCount;
+	}
+    
+	//检查指定车辆是否可以被删除
+	@Override
+	public boolean checkCanDelete(String busid) throws Exception {
+		 boolean result=true;
+		 //如果此车辆的日运行信息个数大于0，此车辆不能被删除
+		 if(ibdm.selectCountByCondition(busid,null)>0){
+			 result=false;
+		 }
+		 return result;
 	}
      
 }

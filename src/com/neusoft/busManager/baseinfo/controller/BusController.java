@@ -104,12 +104,19 @@ public class BusController {
 		   return result;
 	   }
 	   
-	   //检查指定的楼宇能否被删除
+	   //检查指定的车辆能否被删除
 	   @RequestMapping(value="/checkcandelete",method=RequestMethod.GET)
 	   public ResultMessage checkCanDelete(@RequestParam String busid) throws Exception
 	   {
 		   ResultMessage result=new ResultMessage();
-		   return result;
+		   if(ibs.checkCanDelete(busid)){
+	   			result.setResult("Y");
+				result.setMessage("此车辆可以删除");
+	   		}
+	   		else{
+	   			result.setResult("N");
+				result.setMessage("此车辆不能删除");
+	   		}
+		return result;
 	   }
-	    
 }

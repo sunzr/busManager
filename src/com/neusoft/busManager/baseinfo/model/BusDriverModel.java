@@ -1,11 +1,13 @@
 package com.neusoft.busManager.baseinfo.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.neusoft.busManager.queryinfo.model.BusDayInfoModel;
 
 //司机信息Model类
 @Alias("BusDriver")
@@ -44,6 +46,9 @@ public class BusDriverModel {
 	private String photoFileName=null;
 	//附件文件类型
 	private String photoContentType=null; 
+	
+	//关联车辆日运行信息对象
+		private List<BusDayInfoModel> busdayinfo;
 	public String getDriverid() {
 		return driverid;
 	}
@@ -121,6 +126,12 @@ public class BusDriverModel {
 	}
 	public void setPhotoContentType(String photoContentType) {
 		this.photoContentType = photoContentType;
+	}
+	public List<BusDayInfoModel> getBusdayinfo() {
+		return busdayinfo;
+	}
+	public void setBusdayinfo(List<BusDayInfoModel> busdayinfo) {
+		this.busdayinfo = busdayinfo;
 	}
 	
 

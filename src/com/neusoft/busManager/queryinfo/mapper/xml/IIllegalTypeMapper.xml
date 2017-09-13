@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neusoft.busManager.query.mapper.IIllegalTypeMapper">
+<mapper namespace="com.neusoft.busManager.queryinfo.mapper.IIllegalTypeMapper">
 
 	<resultMap id="IllegalTypeResultMap" type="IllegalType" >
 		<id property="typeno" column="TYPENO" />

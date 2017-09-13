@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.neusoft.busManager.queryinfo.mapper.IBusDayInfoMapper">
+    <resultMap id="BusDayInfoResultMap" type="BusDayInfo">
+       <id property="infono" column="InfoNo"/>
+       <result property="infodate" column="InfoDate"/>
+       <result property="income" column="Income"/>
+       <result property="mileage" column="Mileage"/>
+       <result property="oilwear" column="Oilwear"/>
+       <result property="infodesc" column="InfoDesc"/>
+    </resultMap>
+    <!-- 车辆日运行关联信息映射 -->
+    <resultMap id="BusDayInfoAssociationResultMap" type="BusDayInfo" extends="BusDayInfoResultMap">
+          <association property="bus" column="BusID"
+          select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select">
+          </association>
+         <association property="busdriver" column="DriverID"
+         select="com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper.select">          
+         </association>
+    </resultMap>
+    
+    <insert id="insert" parameterType="BusDayInfo">
+       insert into BusDayInfo(InfoNo,BusID,DriverID,InfoDate,Income,Mileage,Oilwear,InfoDesc)
+       values(#{infono},#{bus.busid},#{busdriver.driverid},#{infodate},#{income},#{mileage},#{oilwear},#{infodesc})
+    </insert>
+    
+    <update id="update" parameterType="BusDayInfo">
+       update BusDayInfo set BusID=#{bus.busid},DriverID=#{busdriver.driverid},InfoDate=#{infodate},
+         Income=#{income},Mileage=#{mileage},Oilwear=#{oilwear},InfoDesc=#{infodesc}
+             where InfoNo=#{infono}
+    </update>
+    
+    <delete id="delete" parameterType="BusDayInfo">
+       delete from BusDayInfo where InfoNo=#{infono}
+    </delete>
+    
+    <select id="select" parameterType="String" resultMap="BusDayInfoAssociationResultMap">
+         select * from BusDayInfo where InfoNo=#{infono}
+    </select>
+    
+    <select id="selectListByAll" resultMap="BusDayInfoResultMap">
+      select * from BusDayInfo 
+    </select>
+  
+    <!--按车辆取得车辆日运行信息  -->
+    <select id="selectListByBus" parameterType="String" resultMap="BusDayInfoResultMap">
+      select * from BusDayInfo where BusID=#{busid}
+    </select>
+    
+    <!-- 按司机对象取得车辆日运行信息 -->
+    <select id="selectListByBusDriver" parameterType="String" resultMap="BusDayInfoResultMap">
+        select * from BusDayInfo where  DriverID=#{driverid}
+    </select>
+    
+    <select id="selectListByCondition"  resultMap="BusDayInfoResultMap">
+        select * from BusDayInfo
+        <where>
+          <if test="busid!=0">
+          and BusID=#{busid}
+          </if>
+          <if test="driverid!=0">
+           and  DriverID=#{driverid}
+          </if>
+        </where>
+    </select>
+    
+    <select id="selectListByAllWithPage" resultMap="BusDayInfoAssociationResultMap">
+         select a.*,b.*,c.* from BusDayInfo a inner join Bus b on a.busid=b.busid
+                     inner join BusDriver c on a.driverid=c.driverid
+    </select>
+    
+    <select id="selectListByConditionWithPage"  resultMap="BusDayInfoAssociationResultMap">
+        select * from BusDayInfo
+        <where>
+          <if test="busid!=0">
+          and BusID=#{busid}
+          </if>
+          <if test="driverid!=0">
+           and  DriverID=#{driverid}
+          </if>
+        </where>
+    </select>
+    <select id="selectCountByAl" resultType="int">
+    select count(infono) from BusDayInfo
+    </select>
+    
+    <select id="selectCountByCondition" resultType="_int">
+    select count(*) from BusDayInfo
+     <where>
+          <if test="busid!=0">
+          and BusID=#{busid}
+          </if>
+          <if test="driverid!=0">
+           and  DriverID=#{driverid}
+          </if>
+        </where>
+    </select>
+ </mapper> 

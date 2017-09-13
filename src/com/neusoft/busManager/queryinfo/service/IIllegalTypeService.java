@@ -1,7 +1,8 @@
-package com.neusoft.busManager.query.service;
+package com.neusoft.busManager.queryinfo.service;
 
 import java.util.List;
-import com.neusoft.busManager.query.model.IllegalTypeModel;
+
+import com.neusoft.busManager.queryinfo.model.IllegalTypeModel;
 
 public interface IIllegalTypeService {
 	//取得指定的模块

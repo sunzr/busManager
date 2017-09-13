@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neusoft.busManager.query.mapper.IBusOilInfoMapper">
+<mapper namespace="com.neusoft.busManager.queryinfo.mapper.IBusOilInfoMapper">
 	<!-- 楼宇基本信息映射 -->
 	<resultMap id="BusOilInfoMap" type="BusOilInfo" >
 		<id property="infono" column="INFONO" />

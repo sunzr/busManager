@@ -1,4 +1,4 @@
-package com.neusoft.busManager.query.model;
+package com.neusoft.busManager.queryinfo.model;
 
 import org.apache.ibatis.type.Alias;
 
