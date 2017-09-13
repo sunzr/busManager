@@ -21,5 +21,4 @@ public interface IBusOilInfoService {
 	public List<BusOilInfoModel> selectListByConditionWithPage( int busid, int driverid,  int rows,	int page) throws Exception;
 	public int selectCountByAll() throws Exception;
 	public int selectCountByCondition( int busid, int driverid) throws Exception;
-	public int selectPageCountByCondition(int busNo, int busDriverNo, int rows)throws Exception ;
 }
