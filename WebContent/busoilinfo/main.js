@@ -54,16 +54,85 @@ $(function(){
 	
 	});
 
-	//更改小区选择事件
 	$("select#busSelect").on("change",function(){
 		busNo=parseInt($(this).val());
 		$("#busoilGrid").jqGrid('setGridParam',{postData:{busNo:busNo,busDriverNo:busDriverNo}}).trigger("reloadGrid");
 		
 	});
-	//更改建筑类型选择事件
+	
 	$("select#busDriverSelect").on("change",function(){
 		busDriverNo=parseInt($(this).val());
 		$("#busoilGrid").jqGrid('setGridParam',{postData:{busNo:busNo,busDriverNo:busDriverNo}}).trigger("reloadGrid");
 		
+	});
+	
+	
+	$("a#busoilAddLink").on("click",function(){
+
+		$("#ModalLabel").html("增加加油记录");
+		
+		$("#modelbody").load("busoilinfo/add.html",function(){
+			$("input[type='button'][value='取消']").on("click",function(){
+				$('#busoilModal').modal("hide");
+			});
+			
+			$.getJSON("busdriver/list/all.mvc",function(data){
+					if(data!=null){
+						for(var i=0;i<data.length;i++){
+							$("select[name='driver.driverid']").append("<option value='"+data[i].driverid+"'>"+data[i].dname+"</option>");
+						}
+						if(busDriverNo!=0){
+							$("select[name='driver.driverid']").val(busDriverNo);
+						}
+						
+						
+					}
+			});
+			
+			$('#busoilAddForm').ajaxForm(function(data){
+				BootstrapDialog.alert({title:"提示",message:data.message});
+				if(data.result=="Y"){
+					$("#busoilGrid").trigger("reloadGrid");
+				}
+				$('#busoilModal').modal("hide");
+			});
+		});
+		
+		
+		$('#busoilModal').modal("show");
+	});
+	
+	//点击修改处理
+	$("a#busoilModifyLink").on("click",function(){
+		if(typeNo==0){
+			BootstrapDialog.alert({title:"提示",message:"请选择要修改的加油记录"});
+		}
+		else{
+			$("#ModalLabel").html("修改加油记录");
+			$("#modelbody").load("busoilinfo/modify.html",function(){
+				//取得车辆类型信息
+				//getJSON得到数据，通过function(data)函数进行数据的回显
+				$.getJSON("busoil/get.mvc",{busid:busNo},function(data){
+					$("input[name='bus.busid']").val(data.busid);
+					$("input[name='oilvolume']").val(data.oilvolume);
+					$("input[name='oilfee']").val(data.oilfee);
+					$("input[name='busmile']").val(data.busmile);
+				});
+				
+				$("input[type='button'][value='取消']").on("click",function(){
+					$('#bustypeModal').modal("hide");
+				});
+				
+				$('#busoilAddForm').ajaxForm(function(data){
+					BootstrapDialog.alert({title:"提示",message:data.message});
+					 if(data.result=="Y"){
+						 $("#bustypeGrid").trigger("reloadGrid");
+					 }
+					 $('#bustypeModal').modal("hide");
+				});
+			});
+			$("div.modal-dialog").css("width","900px");
+			$('#bustypeModal').modal("show");
+		}
 	});
 });	
