@@ -81,6 +81,19 @@ public class BusOilInfoServiceImpl implements IBusOilInfoService{
 	public int selectCountByCondition(int busid, int driverid) throws Exception {
 		return busoilInfoMapper.selectCountByCondition(busid, driverid);
 	}
+
+	@Override
+	public int selectPageCountByCondition(int busNo, int busDriverNo, int rows) throws Exception {
+		int pageCount=0;
+		int count=this.selectCountByCondition(busNo, busDriverNo);
+		if(count%rows==0){
+			pageCount=count/rows;
+		}
+		else{
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
 	
 	
 }

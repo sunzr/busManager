@@ -3,7 +3,9 @@ package com.neusoft.busManager.queryinfo.model;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.neusoft.busManager.baseinfo.model.BusDriverModel;
 import com.neusoft.busManager.baseinfo.model.BusModel;
 
@@ -14,6 +16,9 @@ public class BusOilInfoModel {
 	private BusDriverModel driver;
 	private double oilvolume;
 	private double oilfee;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	private Date infodate;
 	private int busmile;
 	

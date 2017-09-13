@@ -36,7 +36,7 @@
        delete from BusDayInfo where InfoNo=#{infono}
     </delete>
     
-    <select id="select" parameterType="String" resultMap="BusDayInfoAssociationResultMap">
+    <select id="select" parameterType="_int" resultMap="BusDayInfoAssociationResultMap">
          select * from BusDayInfo where InfoNo=#{infono}
     </select>
     
