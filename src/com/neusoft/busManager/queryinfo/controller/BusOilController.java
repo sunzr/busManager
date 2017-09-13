@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.neusoft.busManager.queryinfo.model.BusOilInfoModel;
 import com.neusoft.busManager.queryinfo.service.IBusOilInfoService;
 import com.neusoft.busManager.util.ResultInfo;
-import com.neusoft.busManager.util.ResultMessage;
 
 
 @RestController
@@ -34,17 +33,4 @@ public class BusOilController {
 		   result.setList(busOilInfoService.selectListByConditionWithPage(busNo, busDriverNo, rows, page));
 		   return result;
 	   }
-	   
-		@RequestMapping(value="/add",method=RequestMethod.POST)
-	   public ResultMessage add(BusOilInfoModel busoil) throws Exception
-	   {
-		   ResultMessage result=new ResultMessage();
-		   busOilInfoService.insert(busoil);
-		   result.setResult("Y");
-		   result.setMessage("增加加油记录成功");
-		   return result;
-		   
-		  
-	   }
-   
 }
