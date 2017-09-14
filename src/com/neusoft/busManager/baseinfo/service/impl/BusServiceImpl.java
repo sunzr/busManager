@@ -45,13 +45,13 @@ public class BusServiceImpl implements IBusService {
 	}
 
 	@Override
-	public BusModel get(String busid) throws Exception {
+	public BusModel get(int busid) throws Exception {
 		return ibm.select(busid);
 	}
    
 
 	@Override
-	public BusModel selectWithBusDayInfo(String busid) throws Exception {
+	public BusModel selectWithBusDayInfo(int busid) throws Exception {
 		return ibm.selectWithBusDayInfo(busid);
 	}
 	
@@ -113,10 +113,10 @@ public class BusServiceImpl implements IBusService {
     
 	//检查指定车辆是否可以被删除
 	@Override
-	public boolean checkCanDelete(String busid) throws Exception {
+	public boolean checkCanDelete(int busid) throws Exception {
 		 boolean result=true;
 		 //如果此车辆的日运行信息个数大于0，此车辆不能被删除
-		 if(ibdm.selectCountByCondition(busid,null)>0){
+		 if(ibdm.selectCountByCondition(busid,0)>0){
 			 result=false;
 		 }
 		 return result;

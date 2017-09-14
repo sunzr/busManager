@@ -11,16 +11,23 @@ import com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper;
 import com.neusoft.busManager.baseinfo.model.BusDriverModel;
 import com.neusoft.busManager.baseinfo.model.BusFactoryModel;
 import com.neusoft.busManager.baseinfo.service.IBusDriverService;
+import com.neusoft.busManager.queryinfo.mapper.IBusDayInfoMapper;
 
 //司机信息的业务实现类
 @Service("BusDriverService")
 @Transactional
 public class BusDriverServiceImpl implements IBusDriverService{
    private IBusDriverMapper  ibdm=null;
-    @Autowired
+   private IBusDayInfoMapper ibdim=null;
+   @Autowired
 	public void setIbdm(IBusDriverMapper ibdm) {
 		this.ibdm = ibdm;
 	}
+   @Autowired
+	public void setIbdim(IBusDayInfoMapper ibdim) {
+		this.ibdim = ibdim;
+	}
+
 	@Override
 	public void add(BusDriverModel bdm) throws Exception {
 		if(bdm.getPhotoFileName()!=null){
@@ -50,7 +57,7 @@ public class BusDriverServiceImpl implements IBusDriverService{
 		ibdm.delete(bdm);
 	}
 	@Override
-	public BusDriverModel get(String driverid) throws Exception {
+	public BusDriverModel get(int driverid) throws Exception {
 		return ibdm.select(driverid);
 	}
 	@Override
@@ -78,6 +85,16 @@ public class BusDriverServiceImpl implements IBusDriverService{
 		}
 		return pageCount;
 	}
+	//检查指定司机信息是否可以被删除
+		@Override
+		public boolean checkCanDelete(int driverid) throws Exception {
+			 boolean result=true;
+			 //如果此车辆的日运行信息个数大于0，此车辆不能被删除
+			 if(ibdim.selectCountByCondition(0,driverid)>0){
+				 result=false;
+			 }
+			 return result;
+		}
 	//检查司机身份证号是否存在
 	@Override
 	public boolean checkDcardExist(String dcard) throws Exception {

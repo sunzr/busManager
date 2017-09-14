@@ -20,7 +20,7 @@ public interface IBusDriverService {
 			public void modifyForDeletePhoto(BusDriverModel bdm) throws Exception;
 			
 			//取得指定的司机信息
-			 public BusDriverModel get(String driverid)throws Exception;
+			 public BusDriverModel get(int driverid)throws Exception;
 			//取得所有司机信息
 				public List<BusDriverModel> getListByAll() throws Exception;
 			//分页方式取得所有的司机信息列表
@@ -32,4 +32,7 @@ public interface IBusDriverService {
 		
 		 //检查司机身份证号是否存在
 		public boolean checkDcardExist(String dcard) throws Exception;
+		
+		//检查指定司机信息是否可以被删除
+		public boolean checkCanDelete(int driverid) throws Exception;
 }

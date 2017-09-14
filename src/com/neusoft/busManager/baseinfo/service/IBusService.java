@@ -14,9 +14,9 @@ public interface IBusService {
 			public void delete(BusModel bm) throws Exception;
 			
 			//取得指定的车辆信息
-			 public BusModel get(String busid)throws Exception;
+			 public BusModel get(int busid)throws Exception;
 			//取得指定的车辆信息,关联车辆日运行信息
-			 public BusModel selectWithBusDayInfo(String busid) throws Exception;
+			 public BusModel selectWithBusDayInfo(int busid) throws Exception;
 			//取得所有车辆信息
 				public List<BusModel> getListByAll() throws Exception;
 			//按车辆类型取得车辆信息
@@ -37,5 +37,5 @@ public interface IBusService {
 				//按检索条件取得车辆信息的页数
 			   public int getPageCountByCondition(int typeno,int factoryno,int rows) throws Exception;
 			 //检查指定车辆是否可以被删除
-				public boolean checkCanDelete(String busid) throws Exception;
+				public boolean checkCanDelete(int busid) throws Exception;
 }

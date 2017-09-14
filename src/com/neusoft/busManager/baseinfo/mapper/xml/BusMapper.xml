@@ -54,12 +54,12 @@
      delete from Bus where BusID=#{busid}
      </delete>
      
-     <select id="select" parameterType="String" resultMap="BusAssociationResultMap">
+     <select id="select" parameterType="int" resultMap="BusAssociationResultMap">
           select * from Bus where  BusID=#{busid}
      </select>
      
      <!-- 关联车辆日运行信息 -->
-     <select id="selectWithBusDayInfo" parameterType="String" resultMap="BusCollectionResultMap">
+     <select id="selectWithBusDayInfo" parameterType="int" resultMap="BusCollectionResultMap">
           select * from Bus where BusID=#{busid}
      </select>
      

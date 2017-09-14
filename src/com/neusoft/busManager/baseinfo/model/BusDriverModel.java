@@ -13,7 +13,7 @@ import com.neusoft.busManager.queryinfo.model.BusDayInfoModel;
 @Alias("BusDriver")
 public class BusDriverModel {
  //司机编号
-	private String driverid;
+	private int driverid;
  //司机姓名
 	private String dname;
  //司机性别
@@ -49,12 +49,13 @@ public class BusDriverModel {
 	
 	//关联车辆日运行信息对象
 		private List<BusDayInfoModel> busdayinfo;
-	public String getDriverid() {
-		return driverid;
-	}
-	public void setDriverid(String driverid) {
-		this.driverid = driverid;
-	}
+	
+	public int getDriverid() {
+			return driverid;
+		}
+		public void setDriverid(int driverid) {
+			this.driverid = driverid;
+		}
 	public String getDname() {
 		return dname;
 	}

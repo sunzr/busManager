@@ -14,8 +14,9 @@
     <!-- 车辆日运行关联信息映射 -->
     <resultMap id="BusDayInfoAssociationResultMap" type="BusDayInfo" extends="BusDayInfoResultMap">
           <association property="bus" column="BusID"
-          select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select">
+          select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.selectWithBusDayInfo">
           </association>
+          
          <association property="busdriver" column="DriverID"
          select="com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper.select">          
          </association>
@@ -36,31 +37,31 @@
        delete from BusDayInfo where InfoNo=#{infono}
     </delete>
     
-    <select id="select" parameterType="String" resultMap="BusDayInfoAssociationResultMap">
-         select * from BusDayInfo where InfoNo=#{infono}
-    </select>
+   <select id="select" parameterType="Integer" resultMap="BusDayInfoAssociationResultMap">
+       select * from BusDayInfo where InfoNo=#{infono}
+   </select>
     
     <select id="selectListByAll" resultMap="BusDayInfoResultMap">
       select * from BusDayInfo 
     </select>
   
     <!--按车辆取得车辆日运行信息  -->
-    <select id="selectListByBus" parameterType="String" resultMap="BusDayInfoResultMap">
+    <select id="selectListByBus" parameterType="int" resultMap="BusDayInfoResultMap">
       select * from BusDayInfo where BusID=#{busid}
     </select>
     
     <!-- 按司机对象取得车辆日运行信息 -->
-    <select id="selectListByBusDriver" parameterType="String" resultMap="BusDayInfoResultMap">
+    <select id="selectListByBusDriver" parameterType="int" resultMap="BusDayInfoResultMap">
         select * from BusDayInfo where  DriverID=#{driverid}
     </select>
     
     <select id="selectListByCondition"  resultMap="BusDayInfoResultMap">
         select * from BusDayInfo
         <where>
-          <if test="busid!=null">
+          <if test="busid!=0 ">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=null">
+          <if test="driverid!=0 ">
            and  DriverID=#{driverid}
           </if>
         </where>
@@ -74,25 +75,27 @@
     <select id="selectListByConditionWithPage"  resultMap="BusDayInfoAssociationResultMap">
         select * from BusDayInfo
         <where>
-          <if test="busid!=null">
+          <if test="busid!=0 ">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=null">
+          <if test="driverid!=0 ">
            and  DriverID=#{driverid}
           </if>
         </where>
     </select>
-    <select id="selectCountByAl" resultType="int">
+    
+    
+    <select id="selectCountByAll" resultType="int">
     select count(infono) from BusDayInfo
     </select>
     
-    <select id="selectCountByCondition" resultType="_int">
+    <select id="selectCountByCondition" resultType="int">
     select count(*) from BusDayInfo
      <where>
-          <if test="busid!=null">
+          <if test="busid!=0">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=null">
+          <if test="driverid!=0">
            and  DriverID=#{driverid}
           </if>
         </where>
