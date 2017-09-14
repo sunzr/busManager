@@ -64,8 +64,8 @@ public class BusDayInfoController {
 	   }
 	 //按检索条件取得所有车辆日运行信息
 	   @RequestMapping(value="/list/condition",method=RequestMethod.POST)
-	   public List<BusDayInfoModel> gettListByCondition(@RequestParam(required=false)int busid,
-			   @RequestParam(required=false)int driverid) throws Exception{
+	   public List<BusDayInfoModel> gettListByCondition(@RequestParam(required=false,defaultValue="0")int busid,
+			   @RequestParam(required=false,defaultValue="0")int driverid) throws Exception{
 		   return ibds.gettListByCondition(busid, driverid);
 	   }
 	 //取得所有车辆日运行信息，分页方式
@@ -77,8 +77,8 @@ public class BusDayInfoController {
 	 //按检索条件取得车辆日运行信息列表，有分页
 	   @RequestMapping(value="/list/condition/page00",method=RequestMethod.POST)
 	   public List<BusDayInfoModel> getListByConditionWithPage00(
-			   @RequestParam(required=false) int busid, 
-			   @RequestParam(required=false) int driverid,
+			   @RequestParam(required=false,defaultValue="0") int busid, 
+			   @RequestParam(required=false,defaultValue="0") int driverid,
 			   @RequestParam(required=false,defaultValue="10") int rows,
 			   @RequestParam(required=false,defaultValue="1") int page) throws Exception
 	   {
@@ -88,8 +88,8 @@ public class BusDayInfoController {
 	 //按检索条件取得车辆日运行信息列表，有分页,一次性返回分页的所有信息
 	   @RequestMapping(value="/list/condition/page",method=RequestMethod.POST)
 	   public ResultInfo<BusDayInfoModel> getListByConditionWithPage(
-			   @RequestParam(required=false) int busid, 
-			   @RequestParam(required=false) int driverid,
+			   @RequestParam(required=false,defaultValue="0") int busid, 
+			   @RequestParam(required=false,defaultValue="0") int driverid,
 			   @RequestParam(required=false,defaultValue="10") int rows,
 			   @RequestParam(required=false,defaultValue="1") int page) throws Exception
 	   {

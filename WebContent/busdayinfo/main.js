@@ -32,7 +32,10 @@ $(function(){
 			{ label: '车辆名称', name: 'bus.busname', width: 100 },
 			{ label: '司机姓名', name: 'busdriver.dname', width: 100 },
 			{ label: '收入金额', name: 'income', width: 100 },
-			{ label: '日期', name: 'infodate', width: 100 }
+			{ label: '日期', name: 'infodate', width: 100 },
+			{ label: '行驶里程', name: 'mileage', width: 100 },
+			{ label: '耗油量', name: 'oilwear', width: 100 },
+			{ label: '情况说明', name: 'infodesc', width: 100 }
 		],
 		caption:"车辆日运行信息列表",
 		viewrecords: true, // show the current page, data rang and total records on the toolbar
@@ -136,27 +139,28 @@ $(function(){
 					if(busdata!=null){
 						for(var i=0;i<busdata.length;i++){
 							$("select[name='bus.busid']").append("<option value='"+busdata[i].busid+"'>"+busdata[i].busname+"</option>");
-						}
-						
+						}	
 					}
 					//取得司机列表，填充司机选择下拉框
 					$.getJSON("busdriver/list/all.mvc",function(driverdata){
 						if(driverdata!=null){
-							for(var i=0;i<factorydata.length;i++){
+							for(var i=0;i<driverdata.length;i++){
 								$("select[name='busdriver.driverid']").append("<option value='"+driverdata[i].driverid+"'>"+driverdata[i].dname+"</option>");
 							}						
 						}
 						
 					//取得车辆日运行的信息
-						$.getJSON("busdayinfo/get.mvc",{busid:busId},function(data){
+						$.getJSON("busdayinfo/get.mvc",{infono:infoNo},function(data){
 							$("input[name='infono']").val(data.infono);
 							$("select[name='bus.busid']").val(data.bus.busid);
 							$("select[name='busdriver.driverid']").val(data.busdriver.driverid);
 							$("input[name='income']").val(data.income);
 							$("input[name='infodate']").val(data.infodate);
+							$("input[name='mileage']").val(data.mileage);
+							$("input[name='oilwear']").val(data.oilwear);
+							$("input[name='infodesc']").val(data.infodesc);
 							
 						});
-					
 					});
 		
 				});
@@ -215,6 +219,9 @@ $(function(){
 					$("input[name='busdriver.driverid']").val(data.busdriver.dname);
 					$("input[name='income']").val(data.income);
 					$("input[name='infodate']").val(data.infodate);
+					$("input[name='mileage']").val(data.mileage);
+					$("input[name='oilwear']").val(data.oilwear);
+					$("input[name='infodesc']").val(data.infodesc);
 					
 				});
 				 $("button[type='reset']").on("click",function(){
