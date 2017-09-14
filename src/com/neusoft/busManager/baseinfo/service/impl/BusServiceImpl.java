@@ -48,12 +48,6 @@ public class BusServiceImpl implements IBusService {
 	public BusModel get(int busid) throws Exception {
 		return ibm.select(busid);
 	}
-   
-
-	@Override
-	public BusModel selectWithBusDayInfo(int busid) throws Exception {
-		return ibm.selectWithBusDayInfo(busid);
-	}
 	
 	
 	@Override
