@@ -54,7 +54,7 @@ public class BusController {
 		 
 		 //取得指定的车辆
 		   @RequestMapping(value="/get",method=RequestMethod.GET)
-		   public BusModel get(@RequestParam String busid) throws Exception
+		   public BusModel get(@RequestParam int busid) throws Exception
 		   {
 			   return ibs.get(busid);
 		   }
@@ -106,7 +106,7 @@ public class BusController {
 	   
 	   //检查指定的车辆能否被删除
 	   @RequestMapping(value="/checkcandelete",method=RequestMethod.GET)
-	   public ResultMessage checkCanDelete(@RequestParam String busid) throws Exception
+	   public ResultMessage checkCanDelete(@RequestParam int busid) throws Exception
 	   {
 		   ResultMessage result=new ResultMessage();
 		   if(ibs.checkCanDelete(busid)){

@@ -4,7 +4,7 @@
 $(function(){
 	var typeNo=0;
 	var factoryNo=0;
-	var busId=null;
+	var busId=0;
 	
 	//取得车辆类型列表，填充车辆类型选择下拉框
 	$.getJSON("bustype/list/all.mvc",function(data){
@@ -136,7 +136,7 @@ $(function(){
 	
 	//点击修改处理
 	$("a#busModifyLink").on("click",function(){
-		if(busId==null){
+		if(busId==0){
 			BootstrapDialog.alert({title:"提示",message:"请选择要修改的车辆信息"});
 		}
 		else{
@@ -193,7 +193,7 @@ $(function(){
 	
 	//点击删除处理
 	$("a#busDeleteLink").on("click",function(){
-		if(busId==null){
+		if(busId==0){
 			BootstrapDialog.alert({title:"提示",message:"请选择要删除的车辆信息"});
 		}
 		else{
@@ -210,7 +210,7 @@ $(function(){
 					if(result){
 				$.post("bus/delete.mvc",{busid:busId},function(data){
 					if(data.result=="Y"){
-						busId=null;
+						busId=0;
 						$("#busGrid").trigger("reloadGrid");
 					}
 					BootstrapDialog.alert({title:"提示",message:data.message}); 
@@ -225,7 +225,7 @@ $(function(){
 	
 	//点击查看处理
 	$("a#busViewLink").on("click",function(){
-		if(busId==null){
+		if(busId==0){
 			BootstrapDialog.alert({title:"提示",message:"请选择要查看的车辆信息"});
 		}
 		else{

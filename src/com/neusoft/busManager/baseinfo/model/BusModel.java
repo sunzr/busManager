@@ -10,7 +10,7 @@ import com.neusoft.busManager.queryinfo.model.BusDayInfoModel;
 @Alias("Bus")
 public class BusModel {
 	//车辆编号
-	private String busid;
+	private int busid;
 	//车辆名称
 	private String busname;
 	//车牌号
@@ -36,14 +36,12 @@ public class BusModel {
 	
 	//关联车辆日运行信息对象
 	private List<BusDayInfoModel> busdayinfo;
-	
-	public String getBusid() {
+	public int getBusid() {
 		return busid;
 	}
-	public void setBusid(String busid) {
+	public void setBusid(int busid) {
 		this.busid = busid;
 	}
-	
 	public String getBusname() {
 		return busname;
 	}

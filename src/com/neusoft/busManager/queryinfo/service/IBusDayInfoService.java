@@ -18,23 +18,23 @@ public interface IBusDayInfoService {
 		public List<BusDayInfoModel> getListByAll()throws Exception;
 		
 		//按车辆取得车辆日运行信息
-		public List<BusDayInfoModel> getListByBus(String busid)throws Exception;
+		public List<BusDayInfoModel> getListByBus(int busid)throws Exception;
 		
 		//按司机对象取得车辆日运行信息
-		public List<BusDayInfoModel> getListByBusDriver(String driverid)throws Exception;
+		public List<BusDayInfoModel> getListByBusDriver(int driverid)throws Exception;
 		
 		//按检索条件取得所有车辆日运行信息
-		   public List<BusDayInfoModel> gettListByCondition(String busid,String driverid) throws Exception;
+		   public List<BusDayInfoModel> gettListByCondition(int busid,int driverid) throws Exception;
 		//分页方式取得所有车辆日运行信息
 		public List<BusDayInfoModel> getListByAllWithPage(int rows,int page)throws Exception;
 		
 		//按检索条件取得所有车辆日运行信息，分页方式
-		public List<BusDayInfoModel> getListByConditionWithPage(String busid,String driverid,int rows,int page) throws Exception;		
+		public List<BusDayInfoModel> getListByConditionWithPage(int busid,int driverid,int rows,int page) throws Exception;		
 		//取得车辆日运行信息的个数
 		public int getCountByAll()throws Exception;
 		
 		//按检索条件取得车辆日运行信息的个数
-		   public int getCountByCondition(String busid,String driverid) throws Exception;
+		   public int getCountByCondition(int busid,int driverid) throws Exception;
 		//按检索条件取得车辆日运行信息的页数
-		   public int getPageCountByCondition(String busid,String driverid,int rows) throws Exception;
+		   public int getPageCountByCondition(int busid,int driverid,int rows) throws Exception;
 }

@@ -42,15 +42,15 @@ public class BusDayInfoServiceImpl implements IBusDayInfoService{
 		return ibdm.selectListByAll();
 	}
 			@Override
-			public List<BusDayInfoModel> getListByBus(String busid) throws Exception {
+			public List<BusDayInfoModel> getListByBus(int busid) throws Exception {
 				return ibdm.selectListByBus(busid);
 			}
 	@Override
-	public List<BusDayInfoModel> getListByBusDriver(String driverid) throws Exception {
+	public List<BusDayInfoModel> getListByBusDriver(int driverid) throws Exception {
 		return ibdm.selectListByBusDriver(driverid);
 	}
 @Override
-public List<BusDayInfoModel> gettListByCondition(String busid, String driverid) throws Exception {
+public List<BusDayInfoModel> gettListByCondition(int busid, int driverid) throws Exception {
 	return ibdm.selectListByCondition(busid, driverid);
 }
 	@Override
@@ -59,7 +59,7 @@ public List<BusDayInfoModel> gettListByCondition(String busid, String driverid) 
 		return ibdm.selectListByAllWithPage(rb);
 	}
 @Override
-public List<BusDayInfoModel> getListByConditionWithPage(String busid, String driverid, int rows, int page)
+public List<BusDayInfoModel> getListByConditionWithPage(int busid, int driverid, int rows, int page)
 		throws Exception {
 	RowBounds rb=new RowBounds(rows*(page-1),rows);
 	return ibdm.selectListByConditionWithPage(busid, driverid, rb);
@@ -69,11 +69,11 @@ public List<BusDayInfoModel> getListByConditionWithPage(String busid, String dri
 			return ibdm.selectCountByAll();
 		}
 @Override
-public int getCountByCondition(String busid, String driverid) throws Exception {
+public int getCountByCondition(int busid,int driverid) throws Exception {
 	return ibdm.selectCountByCondition(busid, driverid);
 }
 		@Override
-		public int getPageCountByCondition(String busid, String driverid, int rows) throws Exception {
+		public int getPageCountByCondition(int busid, int driverid, int rows) throws Exception {
 			int pageCount=0;
 			int count=this.getCountByCondition(busid, driverid);
 			if(count%rows==0){

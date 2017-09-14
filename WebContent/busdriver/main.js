@@ -2,7 +2,7 @@
  * 司机主程序JS
  */
 $(function(){
-	var driverId=null;
+	var driverId=0;
 	$("#busdriverGrid").jqGrid({		 
 		url:'busdriver/list/page.mvc',
 		datatype:"json",
@@ -98,7 +98,7 @@ $(function(){
 	
 	//点击修改处理
 	$("a#busdriverModifyLink").on("click",function(){
-		if(driverId==null){
+		if(driverId==0){
 			BootstrapDialog.alert({title:"提示",message:"请选择要修改的司机信息"});
 		}
 		else{
@@ -141,8 +141,14 @@ $(function(){
 	
 	//点击删除处理
 	$("a#busdriverDeleteLink").on("click",function(){
-		if(driverId==null){
+		if(driverId==0){
 			BootstrapDialog.alert({title:"提示",message:"请选择要删除的司机信息"});
+		}
+		else{
+			//检查此对象能否被删除
+			$.getJSON("busdriver/checkcandelete.mvc",{driverid:driverId},function(data){
+				if(data.result=="N"){
+					BootstrapDialog.alert({title:"提示",message:'此司机有关联的车辆日运行信息，不能被删除!'});
 		}
 		else{
 			//让用户确认执行删除操作
@@ -161,11 +167,13 @@ $(function(){
 				}
 			});
 		}
+			});
+		}
 	});
 	
 	//点击查看处理
 	$("a#busdriverViewLink").on("click",function(){
-		if(driverId==null){
+		if(driverId==0){
 			BootstrapDialog.alert({title:"提示",message:"请选择要查看的司机信息"});
 		}
 		else{

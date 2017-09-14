@@ -18,10 +18,10 @@ public interface IBusMapper {
 		public void delete(BusModel bm) throws Exception;
 		
 		//取得指定的车辆信息
-		 public BusModel select(String busid)throws Exception;
+		 public BusModel select(int busid)throws Exception;
 		
 		 //取得指定的车辆信息,关联车辆日运行信息
-		 public BusModel selectWithBusDayInfo(String busid)throws Exception;
+		 public BusModel selectWithBusDayInfo(int busid)throws Exception;
 		 
 		//取得所有车辆信息
 			public List<BusModel> selectListByAll() throws Exception;

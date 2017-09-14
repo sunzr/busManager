@@ -27,7 +27,7 @@ public class BusDayInfoModel {
     private Double income; 
 	//行驶里程
     private int mileage;
-	//油耗
+	//耗油量
     private Double oilwear;
 	//其他情况说明
     private String infodesc;

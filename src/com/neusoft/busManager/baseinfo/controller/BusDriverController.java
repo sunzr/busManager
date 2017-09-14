@@ -98,7 +98,7 @@ public class BusDriverController {
 	   } 
   //取得指定的司机信息
 	   @RequestMapping(value="/get",method=RequestMethod.GET)
-	   public BusDriverModel get(@RequestParam String driverid) throws Exception
+	   public BusDriverModel get(@RequestParam int driverid) throws Exception
 	   {
 		   return ibds.get(driverid);
 	   }
@@ -114,14 +114,29 @@ public class BusDriverController {
 	   {
 		   return ibds.getListByAllWithPage(rows, page);
 	   }
-	   //检查司机姓名是否存在
+	   //检查指定的司机信息能否被删除
+	   @RequestMapping(value="/checkcandelete",method=RequestMethod.GET)
+	   public ResultMessage checkCanDelete(@RequestParam int driverid) throws Exception
+	   {
+		   ResultMessage result=new ResultMessage();
+		   if(ibds.checkCanDelete(driverid)){
+	   			result.setResult("Y");
+				result.setMessage("此司机信息可以删除");
+	   		}
+	   		else{
+	   			result.setResult("N");
+				result.setMessage("此司机信息不能删除");
+	   		}
+		return result;
+	   }
+	   //检查司机身份证号是否存在
 	  	 @RequestMapping(value="/checkDcardExist",method=RequestMethod.GET,produces="application/json")
 	    public boolean checkDcardExist(@RequestParam String dcard) throws Exception{
 	   	 return !ibds.checkDcardExist(dcard);
 	    } 
 	  //下载文件的方法
 	  	@RequestMapping(value="/downphoto",method=RequestMethod.GET)
-	  	 public ResponseEntity<byte[]> downloadPhoto(@RequestParam String driverid) throws Exception
+	  	 public ResponseEntity<byte[]> downloadPhoto(@RequestParam int driverid) throws Exception
 	  	 {
 	  		 BusDriverModel bdm=ibds.get(driverid);
 	  		 String fileName=new String(bdm.getPhotoFileName().getBytes("UTF-8"),"iso-8859-1");

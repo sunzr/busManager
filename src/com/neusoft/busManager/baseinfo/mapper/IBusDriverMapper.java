@@ -21,7 +21,7 @@ public interface IBusDriverMapper {
 		 //删除司机信息,有附件信息处理
 		public void updateForDeletePhoto(BusDriverModel bdm) throws Exception;
 		//取得指定的司机信息
-		 public BusDriverModel select(String driverid)throws Exception;
+		 public BusDriverModel select(int driverid)throws Exception;
 		//取得所有司机信息
 			public List<BusDriverModel> selectListByAll() throws Exception;
 		//分页方式取得所有的司机信息列表

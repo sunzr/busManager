@@ -21,22 +21,22 @@ public interface IBusDayInfoMapper {
 	public List<BusDayInfoModel> selectListByAll()throws Exception;
 	
 	//按车辆取得车辆日运行信息
-	public List<BusDayInfoModel> selectListByBus(String busid)throws Exception;
+	public List<BusDayInfoModel> selectListByBus(int busid)throws Exception;
 	
 	//按司机对象取得车辆日运行信息
-	public List<BusDayInfoModel> selectListByBusDriver(String driverid)throws Exception;
+	public List<BusDayInfoModel> selectListByBusDriver(int driverid)throws Exception;
 	
 	//按检索条件取得所有车辆日运行信息
-	   public List<BusDayInfoModel> selectListByCondition(@Param("busid")String busid,@Param("driverid")String driverid) throws Exception;
+	   public List<BusDayInfoModel> selectListByCondition(@Param("busid")int busid,@Param("driverid")int driverid) throws Exception;
 	//分页方式取得所有车辆日运行信息
 	public List<BusDayInfoModel> selectListByAllWithPage(RowBounds rb)throws Exception;
 	
 	//按检索条件取得所有车辆日运行信息，分页方式
-	public List<BusDayInfoModel> selectListByConditionWithPage(@Param("busid")String busid,@Param("driverid")String driverid,RowBounds rb) throws Exception;		
+	public List<BusDayInfoModel> selectListByConditionWithPage(@Param("busid")int busid,@Param("driverid")int driverid,RowBounds rb) throws Exception;		
 	//取得车辆日运行信息的个数
 	public int selectCountByAll()throws Exception;
 	
 	//按检索条件取得车辆日运行信息的个数
-	   public int selectCountByCondition(@Param("busid")String busid,@Param("driverid")String driverid) throws Exception;
+	   public int selectCountByCondition(@Param("busid")int busid,@Param("driverid")int driverid) throws Exception;
 	
 }
