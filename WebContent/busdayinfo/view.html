@@ -22,7 +22,19 @@
     
     <div class="form-group">
         <label>日期</label>
-        <input class="form-control" name="infodate" readonly>
+        <input type="date" class="form-control"  data-date-format="YYYY-MMMM-DD"  name="infodate" readonly>
+    </div>
+    <div class="form-group">
+        <label>行驶里程</label>
+        <input class="form-control" name="mileage" readonly>
+    </div>
+    <div class="form-group">
+        <label>耗油量</label>
+        <input class="form-control" name="oilwear" readonly>
+    </div>
+    <div class="form-group">
+        <label>情况说明</label>
+        <input class="form-control" name="infodesc" readonly>
     </div>
     <button type="reset" class="btn btn-default">返回</button>
 </form>

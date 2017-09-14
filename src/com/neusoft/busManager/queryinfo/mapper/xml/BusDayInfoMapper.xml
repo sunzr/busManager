@@ -14,7 +14,8 @@
     <!-- 车辆日运行关联信息映射 -->
     <resultMap id="BusDayInfoAssociationResultMap" type="BusDayInfo" extends="BusDayInfoResultMap">
           <association property="bus" column="BusID"
-          select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.selectWithBusDayInfo">
+           select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select">
+         <!--   select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.selectWithBusDayInfo">  -->
           </association>
           
          <association property="busdriver" column="DriverID"
@@ -37,7 +38,7 @@
        delete from BusDayInfo where InfoNo=#{infono}
     </delete>
     
-   <select id="select" parameterType="Integer" resultMap="BusDayInfoAssociationResultMap">
+   <select id="select" parameterType="int" resultMap="BusDayInfoAssociationResultMap">
        select * from BusDayInfo where InfoNo=#{infono}
    </select>
     
@@ -58,10 +59,10 @@
     <select id="selectListByCondition"  resultMap="BusDayInfoResultMap">
         select * from BusDayInfo
         <where>
-          <if test="busid!=0 ">
+          <if test="busid!=0">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=0 ">
+          <if test="driverid!=0">
            and  DriverID=#{driverid}
           </if>
         </where>
@@ -75,10 +76,10 @@
     <select id="selectListByConditionWithPage"  resultMap="BusDayInfoAssociationResultMap">
         select * from BusDayInfo
         <where>
-          <if test="busid!=0 ">
+          <if test="busid!=0">
           and BusID=#{busid}
           </if>
-          <if test="driverid!=0 ">
+          <if test="driverid!=0">
            and  DriverID=#{driverid}
           </if>
         </where>
