@@ -1,0 +1,37 @@
+<form id="busrepairinfoModifyForm" role="form" action="busrepairinfo/modify.mvc" method="post">
+     <div class="form-group">
+            <label class="col-sm-2 control-label" >维修序号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="repairNo" id="repairNo" readonly="readonly" />
+            </div>
+            <label class="col-sm-2 control-label" >维修日期地址</label>
+            <div class="col-sm-4">
+               <input type="date" class="form-control" name="repairDate"  data-date-format="YYYY-MMMM-DD"  id="repairDate" readonly="readonly" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" >维修类型编号</label>
+            <div class="col-sm-4">
+                <input class="form-control" name="repairtype.typeNo" id="repairtype" readonly="readonly"></select>
+            </div>
+            <label class="col-sm-2 control-label" >维修单位编号</label>
+            <div class="col-sm-4">
+            	  <input class="form-control" name="provider.providerNo" id="provider" readonly="readonly"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" >车辆编号</label>
+            <div class="col-sm-4">
+                <input class="form-control" name="bus.busid" id="bus"readonly="readonly"></select>
+            </div>
+            <label class="col-sm-2 control-label" >司机编号</label>
+            <div class="col-sm-4">
+				<input class="form-control" name="driver.driverid" id="driver" readonly="readonly"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>维修说明</label>
+            <input class="form-control" name="repairDesc" id="repairDesc" readonly="readonly">
+        </div>
+    <button type="reset" class="btn btn-default">取消</button>
+</form>
