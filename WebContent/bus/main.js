@@ -33,8 +33,15 @@ $(function(){
 			{ label: '车辆编号', name: 'busid', width: 100 },
 			{ label: '车辆名称', name: 'busname', width: 100 },
 			{ label: '车牌号', name: 'buscardid', width: 100 },
+			{ label: '车架号', name: 'vinno', width: 100 },
 			{ label: '车辆类型', name: 'bustype.typename', width: 100 },
-			{ label: '车辆厂家', name: 'busfactory.factoryname', width: 100 }
+			{ label: '车辆厂家', name: 'busfactory.factoryname', width: 100 },
+			{ label: '排量', name: 'vinno', width: 100 },
+			{ label: '座位数', name: 'seating', width: 100 },
+			{ label: '总行驶里程', name: 'totalmileage', width: 100 },
+			{ label: '车辆尺寸:长宽高', name: 'bussize', width: 200 },
+			{ label: '标称油耗', name: 'oilwear', width: 100 },
+			{ label: '载重量', name: 'wload', width: 100 },
 		],
 		caption:"车辆列表",
 		viewrecords: true, // show the current page, data rang and total records on the toolbar
@@ -75,7 +82,7 @@ $(function(){
 	$("a#busAddLink").on("click",function(){
 		$("#ModalLabel").html("增加车辆");
 		$("#modelbody").load("bus/add.html",function(){
-			 $("button[type='reset']").on("click",function(){
+			 $("input[type='button'][value='取消']").on("click",function(){
 				 $('#busModal').modal("hide");
 			 });
 			//验证增加数据
@@ -142,7 +149,7 @@ $(function(){
 		else{
 			$("#ModalLabel").html("修改车辆");
 			$("#modelbody").load("bus/modify.html",function(){
-				 $("button[type='reset']").on("click",function(){
+				 $("input[type='button'][value='取消']").on("click",function(){
 					 $('#busModal').modal("hide");
 				 });
 				
@@ -166,9 +173,16 @@ $(function(){
 						$.getJSON("bus/get.mvc",{busid:busId},function(data){
 							$("input[name='busid']").val(data.busid);
 							$("input[name='busname']").val(data.busname);
+							$("input[name='vinno']").val(data.vinno);
 							$("input[name='buscardid']").val(data.buscardid);
 							$("select[name='bustype.typeno']").val(data.bustype.typeno);
 							$("select[name='busfactory.factoryno']").val(data.busfactory.factoryno);
+							$("input[name='output']").val(data.output);
+							$("input[name='seating']").val(data.seating);
+							$("input[name='totalmileage']").val(data.totalmileage);
+							$("input[name='bussize']").val(data.bussize);
+							$("input[name='oilwear']").val(data.oilwear);
+							$("input[name='wload']").val(data.wload);
 							
 						});
 					
@@ -235,12 +249,19 @@ $(function(){
 				$.getJSON("bus/get.mvc",{busid:busId},function(data){
 					$("input[name='busid']").val(data.busid);
 					$("input[name='busname']").val(data.busname);
+					$("input[name='vinno']").val(data.vinno);
 					$("input[name='buscardid']").val(data.buscardid);
 					$("input[name='bustype.typename']").val(data.bustype.typename);
 					$("input[name='busfactory.factoryname']").val(data.busfactory.factoryname);
+					$("input[name='output']").val(data.output);
+					$("input[name='seating']").val(data.seating);
+					$("input[name='totalmileage']").val(data.totalmileage);
+					$("input[name='bussize']").val(data.bussize);
+					$("input[name='oilwear']").val(data.oilwear);
+					$("input[name='wload']").val(data.wload);
 					
 				});
-				 $("button[type='reset']").on("click",function(){
+				 $("input[type='button'][value='返回']").on("click",function(){
 					 $('#busModal').modal("hide");
 				 });
 				 

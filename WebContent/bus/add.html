@@ -1,29 +1,81 @@
-<form id="busAddForm" role="form" action="bus/add.mvc" method="post">
+<form id="busAddForm" role="form" class="form-horizontal" action="bus/add.mvc" method="post" enctype="multipart/form-data">
+<fieldset>
     <div class="form-group">
-        <label>车辆编号</label>
-        <input class="form-control" name="busid">
-    </div>
-     <div class="form-group">
-        <label>车辆名称</label>
-        <input class="form-control" name="busname">
-    </div>
-    <div class="form-group">
-        <label>车牌号</label>
-        <input class="form-control" name="buscardid">
+    <label class="col-sm-2 control-label" for="busid">车辆编号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="busid" id="busid" />
+            </div>
+  <label class="col-sm-2 control-label" for="busid">车辆名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="busname" id="busname" />
+            </div>
     </div>
     
     <div class="form-group">
-        <label>车辆类型</label>
-        <select class="form-control" name="bustype.typeno">
-        
+    <label class="col-sm-2 control-label" for="buscardid">车牌号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="buscardid" id="buscardid" />
+            </div>
+  <label class="col-sm-2 control-label" for="busvinno">车架号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="vinno" id="busvinno" />
+            </div>
+    </div>
+    
+     <div class="form-group">
+    <label class="col-sm-2 control-label" for="bustypeno">车辆类型</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="bustype.typeno">
+                  </select>
+            </div>
+  <label class="col-sm-2 control-label" for="busvinno">车辆厂家</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="busfactory.factoryno">
+
         </select>
+            </div>
+    </div>
+      <div class="form-group">
+    <label class="col-sm-2 control-label" for="busoutput">排量</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="output" id="busoutput" />
+            </div>
+  <label class="col-sm-2 control-label" for="busseating">座位数</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="seating" id="busseating" />
+            </div>
+    </div>
+    
+      <div class="form-group">
+    <label class="col-sm-2 control-label" for="bustotalmileage">总行驶里程</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="totalmileage" id="bustotalmileage" />
+            </div>
+  <label class="col-sm-2 control-label" for="busbussize">车辆尺寸:长宽高</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="bussize" id="busbussize" />
+            </div>
+    </div>
+    
+      <div class="form-group">
+    <label class="col-sm-2 control-label" for="busOilwear">标称油耗</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="oilwear" id="busOilwear" />
+            </div>
+  <label class="col-sm-2 control-label" for="busWLoad">载重量</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="wload" id="busWLoad" />
+            </div>
     </div>
      <div class="form-group">
-        <label>车辆厂家</label>
-        <select class="form-control" name="busfactory.factoryno">
-        
-        </select>
-    </div>
-    <button type="submit" class="btn btn-default">提交</button>
-    <button type="reset" class="btn btn-default">取消</button>
+        	<div class="col-sm-6">
+                <input type="submit" class="form-control" value="提交" />
+            </div>
+            <div class="col-sm-6">
+                <input type="button" class="form-control" value="取消" />
+            </div>
+        </div> 
+    
+
+    </fieldset>
 </form>

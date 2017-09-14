@@ -1,25 +1,75 @@
-<form id="busViewForm" role="form" action="#">
+<form id="busViewForm" role="form" class="form-horizontal"  action="#">
+   <fieldset>
     <div class="form-group">
-        <label>车辆编号</label>
-        <input class="form-control" name="busid" readonly>
-    </div>
-    <div class="form-group">
-        <label>车辆名称</label>
-        <input class="form-control" name="busname" readonly>
-    </div>
-    <div class="form-group">
-        <label>车牌号</label>
-        <input class="form-control" name="buscardid" readonly>
+    <label class="col-sm-2 control-label" for="busid">车辆编号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="busid" id="busid" readonly/>
+            </div>
+  <label class="col-sm-2 control-label" for="busid">车辆名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="busname" id="busname"  readonly/>
+            </div>
     </div>
     
     <div class="form-group">
-        <label>车辆类型</label>
-        <input class="form-control" name="bustype.typename" readonly>
+    <label class="col-sm-2 control-label" for="buscardid">车牌号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="buscardid" id="buscardid" readonly/>
+            </div>
+  <label class="col-sm-2 control-label" for="busvinno">车架号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="vinno" id="busvinno" readonly/>
+            </div>
     </div>
     
      <div class="form-group">
-        <label>车辆厂家</label>
-        <input class="form-control" name="busfactory.factoryname" readonly>
+    <label class="col-sm-2 control-label" for="bustypeno">车辆类型</label>
+            <div class="col-sm-4">
+             <input type="text" class="form-control" name="bustype.typename"  readonly/>
+            </div>
+  <label class="col-sm-2 control-label" for="busvinno">车辆厂家</label>
+            <div class="col-sm-4">
+               <input type="text" class="form-control" name="busfactory.factoryname"  readonly/>
+            </div>
     </div>
-    <button type="reset" class="btn btn-default">返回</button>
+      <div class="form-group">
+    <label class="col-sm-2 control-label" for="busoutput">排量</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="output" id="busoutput" readonly />
+            </div>
+  <label class="col-sm-2 control-label" for="busseating">座位数</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="seating" id="busseating"  readonly/>
+            </div>
+    </div>
+    
+      <div class="form-group">
+    <label class="col-sm-2 control-label" for="bustotalmileage">总行驶里程</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="totalmileage" id="bustotalmileage"  readonly/>
+            </div>
+  <label class="col-sm-2 control-label" for="busbussize">车辆尺寸:长宽高</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="bussize" id="busbussize"  readonly/>
+            </div>
+    </div>
+    
+      <div class="form-group">
+    <label class="col-sm-2 control-label" for="busOilwear">标称油耗</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="oilwear" id="busOilwear"  readonly/>
+            </div>
+  <label class="col-sm-2 control-label" for="busWLoad">载重量</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="wload" id="busWLoad"  readonly/>
+            </div>
+    </div>
+     <div class="form-group">
+            <div class="col-sm-6">
+                <input type="button" class="form-control" value="返回" />
+            </div>
+        </div> 
+    
+
+    </fieldset>
 </form>
