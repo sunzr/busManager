@@ -7,7 +7,7 @@ $(function(){
 		url:'illegalType/list/page.mvc',
 		datatype:"json",
 		mtype:"GET",
-		caption:"车辆类型列表",
+		caption:"违章类型列表",
 		colModel:[
 			{label: '违章类型序号',name:"typeno",width:200},
 			{label: '违章名称',name:"typename",width:200},
