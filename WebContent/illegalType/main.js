@@ -108,6 +108,12 @@ $(function(){
 			BootstrapDialog.alert({title:"提示",message:"请选择要删除的违章类型"});
 		}
 		else{
+			//检查此对象能否被删除
+			$.getJSON("illegalType/checkcandelete.mvc",{typeno:typeNo},function(data){
+				if(data.result=="N"){
+					BootstrapDialog.alert({title:"提示",message:'此车辆违章类型有关联的车辆违章信息，不能被删除!'});
+				}
+		else{
 
 			BootstrapDialog.confirm({
 				title:"删除确认",
@@ -127,8 +133,9 @@ $(function(){
 				}
 			});
 		}
-
-	});	
+    });
+  }
+});	
 	
 	//点击进行修改处理
 	$("a#illegalTypeModifyLink").on("click",function(){

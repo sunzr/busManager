@@ -92,4 +92,19 @@ public class IllegalTypeController {
 		return result;
 		
 	}
+	
+	 //检查指定的车辆类型能否被删除
+    @RequestMapping(value="/checkcandelete",method=RequestMethod.GET,produces="application/json")
+  	 public ResultMessage checkCanDelete(@RequestParam int typeno) throws Exception{
+  		ResultMessage result=new ResultMessage();
+  		if(illegalTypeService.checkCanDelete(typeno)){
+  			result.setResult("Y");
+			result.setMessage("此车辆违章类型可以删除");
+  		}
+  		else{
+  			result.setResult("N");
+			result.setMessage("此车辆违章类型不能删除");
+  		}
+  		 return result;
+  	 }  
 }

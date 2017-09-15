@@ -17,4 +17,7 @@ public interface IIllegalTypeService {
 	
 	public IllegalTypeModel selectByName(String lname);
 	public void modify(IllegalTypeModel model);
+	
+	//检查指定车辆违章类型能否被删除
+		 public boolean  checkCanDelete(int typeno) throws Exception;
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.busManager.queryinfo.mapper.IBusIllegalFeeMapper;
 import com.neusoft.busManager.queryinfo.mapper.IIllegalTypeMapper;
 import com.neusoft.busManager.queryinfo.model.IllegalTypeModel;
 import com.neusoft.busManager.queryinfo.service.IIllegalTypeService;
@@ -16,7 +17,13 @@ public class IllegalTypeServiceImpl implements IIllegalTypeService{
 
 	@Autowired
 	private IIllegalTypeMapper illegalTypeMapper;
+	private IBusIllegalFeeMapper ibfm=null;
 	
+	@Autowired
+	public void setIbfm(IBusIllegalFeeMapper ibfm) {
+		this.ibfm = ibfm;
+	}
+
 	@Override
 	public IllegalTypeModel get(int moduleNo) throws Exception {
 		return illegalTypeMapper.select(moduleNo);
@@ -71,5 +78,13 @@ public class IllegalTypeServiceImpl implements IIllegalTypeService{
 	public void modify(IllegalTypeModel model) {
 		illegalTypeMapper.modify(model);
 	}
-	
+	 //检查指定车辆违章类型能否被删除
+	 public boolean  checkCanDelete(int typeno) throws Exception{
+		 boolean result=true;
+		 //如果此车辆违章类型的车辆违章信息个数大于0，此车辆违章类型不能被删除
+		 if(ibfm.selectCountByCondition(0, 0, typeno) >0){
+			 result=false;
+		 }
+		 return result;
+	 }
 }
