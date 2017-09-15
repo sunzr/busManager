@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.repairinfo.mapper.IBusRepairInfoDetailMapper">
+ 	<!-- 基础属性映射 -->
+ 	<resultMap type="BusRepairDetail" id="BusRepairInfoDetailResultMap">
+ 		<id property="detailNo" column="DetailNo"/>
+ 		<result property="item" column="Item"/>
+ 		<result property="itemQTY" column="ItemQTY"/>
+ 		<result property="itemUnitPrice" column="itemUnitPrice"/>
+ 		<result property="itemDesc" column="ItemDesc"/>
+ 	</resultMap>
+ 	<!-- 外键映射 (对一)
+ 	车辆维修表对应维修类型：一对一
+ 	车辆维修表对应维修单位：一对一
+ 	车辆维修表对应车辆编号：一对一	
+ 	车辆维修表对应司机编号：一对一	
+ 	-->
+ 	
+ 	<resultMap type="BusRepairDetail" id="BusRepairDetailAssociationResultMap" extends="BusRepairInfoDetailResultMap">
+ 		<association property="reapirInfo" column="RepairNo" select="com.neusoft.busManager.repairinfo.mapper.IBusRepairInfoMapper.select"></association>
+ 	</resultMap>
+ 	
+ 	<insert id="insert" parameterType="BusRepairDetail">
+ 		insert into BusRepairInfoDetail(DetailNo,Item,ItemQTY,itemUnitPrice,ItemDesc,RepairNo)
+ 		values(#{detailNo},#{item},#{itemQTY},#{itemUnitPrice},#{itemDesc},#{reapirInfo.repairNo})
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="BusRepairDetail">
+ 		update BusRepairInfoDetail set Item=#{item},ItemQTY=#{itemQTY},
+ 		itemUnitPrice=#{itemUnitPrice},ItemDesc=#{itemDesc},
+ 		RepairNo=#{reapirInfo.repairNo}
+ 		where DetailNo=#{detailNo}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="BusRepairDetail">
+ 		delete from BusRepairInfoDetail where DetailNo=#{detailNo}
+ 	</delete>
+ 	<!--  -->
+ 	<select id="select" parameterType="int" resultMap="BusRepairDetailAssociationResultMap">
+ 		select * from BusRepairInfoDetail where DetailNo=#{detailNo}
+ 	</select>
+ 	
+ 	<select id="selectListByAll" resultMap="BusRepairDetailAssociationResultMap">
+ 		select * from BusRepairInfoDetail
+ 	</select>
+ 	
+ 	
+ 	<select id="selectCountByAll" resultType="int">
+ 		select count(detailNo) from BusRepairInfoDetail
+ 	</select>
+ 	
+ 	<select id="selectByRepairNo" parameterType="int" resultMap="BusRepairDetailAssociationResultMap">
+ 		select * from BusRepairInfoDetail where DetailNo=#{detailNo}
+ 	</select>
+ 	
+ 	<select id="selectListByAllWithPage" resultMap="BusRepairDetailAssociationResultMap">
+ 		 select a.*,b.* from BusRepairInfoDetail a inner join BusRepairInfo b on a.repairNo=b.repairNo 
+ 	</select>
+ 	<!--  
+ 	<select id="selectListByCondition" resultMap="BusRepairDetailAssociationResultMap">
+ 		select * from BusRepairInfoDetail
+ 		<where>
+		<if test="typeNo!=0">
+		   and TypeNo=#{typeNo}
+		</if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="selectListByConditionWithPage" resultMap="BusRepairDetailAssociationResultMap">
+ 		select * from BusRepairInfoDetail
+ 		<where>
+		<if test="typeNo!=0">
+		   and TypeNo=#{typeNo}
+		</if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="selectCountByCondition" resultType="int">
+ 		 select count(*) from BusRepairInfoDetail
+		<where>
+		<if test="typeNo!=0">
+		   and TypeNo=#{typeNo}
+		</if>
+		</where>
+ 	</select>
+ 	-->
+</mapper> 
