@@ -21,7 +21,7 @@
       select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.selectListByBusFactory">
       </collection>
   </resultMap>
-  
+
   <insert id="insert" parameterType="BusFactory">
        insert into BusFactory(FactoryNo,FactoryName,FactoryDesc)
            values(#{factoryno},#{factoryname},#{factorydesc})

@@ -65,6 +65,7 @@ $(function(){
 		
 	});
 	
+	//更改司机选择事件
 	$("select#busdriverSelect").on("change",function(){
 		driverId=parseInt($(this).val());
 		$("#busdayinfoGrid").jqGrid('setGridParam',{postData:{busid:busId,driverid:driverId}}).trigger("reloadGrid");

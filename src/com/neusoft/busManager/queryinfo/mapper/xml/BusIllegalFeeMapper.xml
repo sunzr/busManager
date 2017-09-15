@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.neusoft.busManager.queryinfo.mapper.IBusIllegalFeeMapper">
+ <resultMap id="BusIllegalFeeResultMap" type="BusIllegalFee">
+     <id property="feeno" column="FeeNo"/>
+       <result property="illeagaldate" column="IllegalDate"/>
+       <result property="paydate" column="PayDate"/>
+       <result property="payfee" column="PayFee"/>
+       <result property="paysocore" column="PayScore"/>
+       <result property="feedesc" column="FeeDesc"/>
+ </resultMap>
+ 
+ <resultMap id="BusIllegalAssociationFeeResultMap" type="BusIllegalFee" extends="BusIllegalFeeResultMap">
+    <association property="bus" column="BusID"
+      select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select">
+    </association>
+     <association property="busdriver" column="DriverID"
+         select="com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper.select">          
+         </association>
+     <association property="illegaltype" column="IllegalTypeNo"
+    select="com.neusoft.busManager.queryinfo.mapper.IIllegalTypeMapper.select">          
+    </association>
+ </resultMap>
+ 
+    <insert id="insert" parameterType="BusIllegalFee">
+      insert into BusIllegalFee(FeeNo,BusID,DriverID,IllegalTypeNo,IllegalDate,PayDate,PayFee,PayScore,FeeDesc )
+         values(#{feeno},#{bus.busid},#{busdriver.driverid},#{illegaltype.typeno},
+            #{illeagaldate},#{paydate},#{payfee},#{paysocore},#{feedesc})
+    </insert>
+    
+    <update id="update" parameterType="BusIllegalFee">
+       update BusIllegalFee set BusID=#{bus.busid},DriverID=#{busdriver.driverid},IllegalTypeNo=#{illegaltype.typeno},
+       IllegalDate=#{illeagaldate},PayDate=#{paydate},PayFee=#{payfee},PayScore=#{paysocore},FeeDesc=#{feedesc}
+       where FeeNo=#{feeno}
+    </update>
+    
+    <delete id="delete" parameterType="BusIllegalFee">
+     delete from BusIllegalFee  where FeeNo=#{feeno}
+    </delete>
+    
+    <select id="select" parameterType="int" resultMap="BusIllegalAssociationFeeResultMap">
+       select * from BusIllegalFee  where FeeNo=#{feeno}
+    </select>
+    
+     <select id="selectListByAll" resultMap="BusIllegalFeeResultMap">
+      select * from BusIllegalFee
+    </select>
+    
+    <!-- 按车辆编号取得车辆违章信息 -->
+    <select id="selectListByBus" parameterType="int" resultMap="BusIllegalFeeResultMap">
+       select * from BusIllegalFee where BusID=#{busid}
+    </select>
+    <!-- 按司机编号取得车辆违章信息 -->
+    <select id="selectListByBusDriver" parameterType="int" resultMap="BusIllegalFeeResultMap">
+    select * from BusIllegalFee where  DriverID=#{driverid}
+    </select>
+    <!-- 按违章类型取得车辆违章信息 -->
+    <select id="selectListByIllgealType" parameterType="int" resultMap="BusIllegalFeeResultMap">
+      select * from BusIllegalFee where IllegalTypeNo=#{typeno}
+    </select>
+    
+     <select id="selectListByCondition"  resultMap="BusIllegalFeeResultMap">
+        select * from BusIllegalFee
+        <where>
+          <if test="busid!=0">
+          and BusID=#{busid}
+          </if>
+          <if test="driverid!=0">
+           and  DriverID=#{driverid}
+          </if>
+          <if test="typeno!=0">
+            and IllegalTypeNo=#{typeno}
+          </if>
+        </where>
+    </select>
+    
+    <select id="selectListByAllWithPage" resultMap="BusIllegalAssociationFeeResultMap">
+         select a.*,b.*,c.* ,d.* from BusIllegalFee a inner join Bus b on a.busid=b.busid
+                     inner join BusDriver c on a.driverid=c.driverid 
+                     inner join IllegalType d on a.illegaltypeno=d.typeno
+    </select>
+    <select id="selectListByConditionWithPage"  resultMap="BusIllegalAssociationFeeResultMap">
+        select * from BusIllegalFee
+        <where>
+          <if test="busid!=0">
+          and BusID=#{busid}
+          </if>
+          <if test="driverid!=0">
+           and  DriverID=#{driverid}
+          </if>
+           <if test="typeno!=0">
+            and IllegalTypeNo=#{typeno}
+          </if>
+        </where>
+    </select>
+    
+     <select id="selectCountByAll" resultType="int">
+    select count(infono) from BusIllegalFee
+    </select>
+    
+    <select id="selectCountByCondition" resultType="int">
+    select count(*) from BusIllegalFee
+     <where>
+          <if test="busid!=0">
+          and BusID=#{busid}
+          </if>
+          <if test="driverid!=0">
+           and  DriverID=#{driverid}
+          </if>
+           <if test="typeno!=0">
+            and IllegalTypeNo=#{typeno}
+          </if>
+        </where>
+    </select>
+ </mapper>

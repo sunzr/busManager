@@ -15,7 +15,6 @@
     <resultMap id="BusDayInfoAssociationResultMap" type="BusDayInfo" extends="BusDayInfoResultMap">
           <association property="bus" column="BusID"
            select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select">
-         <!--   select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.selectWithBusDayInfo">  -->
           </association>
           
          <association property="busdriver" column="DriverID"

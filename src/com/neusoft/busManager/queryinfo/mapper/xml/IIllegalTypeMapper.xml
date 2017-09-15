@@ -10,9 +10,13 @@
 		<result property="payscore" column="PayScore"/>
 		<result property="payfee" column="PayFee"/>
 	</resultMap>
-		
+		<resultMap id="IllegalTypeCollectionResultMap" type="IllegalType" extends="IllegalTypeResultMap">
+		        <collection property="busillegalfee" column="Typeno"
+		        select="com.neusoft.busManager.queryinfo.mapper.IBusIllegalFeeMapper.selectListByIllgealType">
+		        </collection>
+		</resultMap>
 
-	<select id="select" parameterType="int" resultMap="IllegalTypeResultMap">
+	<select id="select" parameterType="int" resultMap="IllegalTypeCollectionResultMap">
 		select * from illegaltype where typeno=#{typeno}
 	</select>
 	

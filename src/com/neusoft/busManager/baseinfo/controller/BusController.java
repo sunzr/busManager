@@ -94,7 +94,6 @@ public class BusController {
 			   @RequestParam(required=false,defaultValue="10") int rows,
 			   @RequestParam(required=false,defaultValue="1") int page) throws Exception
 	   {
-		   System.out.println(typeno);
 		   ResultInfo<BusModel> result=new ResultInfo<BusModel>();
 		   result.setCount(ibs.getCountByCondition(typeno,factoryno));
 		   result.setPageCount(ibs.getPageCountByCondition(typeno,factoryno, rows));

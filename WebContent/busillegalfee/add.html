@@ -1,0 +1,47 @@
+<form id="busillegalfeeAddForm" role="form" action="busillegalfee/add.mvc" method="post">
+    <div class="form-group">
+        <label>违章序号</label>
+        <input class="form-control" name="feeno">
+    </div>
+    <div class="form-group">
+        <label>车辆名称</label>
+        <select class="form-control" name="bus.busid">
+        
+        </select>
+    </div>
+    <div class="form-group">
+        <label>司机姓名</label>
+        <select class="form-control" name="busdriver.driverid">
+        
+        </select>
+    </div>
+    <div class="form-group">
+        <label>违章类型</label>
+        <select class="form-control" name="illegaltype.typeno">
+        
+        </select>
+    </div>
+    <div class="form-group">
+        <label>违章日期</label>
+        <input type="date" class="form-control" data-date-format="YYYY-MMMM-DD" name="illeagaldate">
+    </div>
+    <div class="form-group">
+        <label>缴费日期</label>
+        <input type="date" class="form-control" data-date-format="YYYY-MMMM-DD"  name="paydate">
+    </div>
+     <div class="form-group">
+        <label>罚款金额</label>
+        <input class="form-control" name="payfee">
+    </div>
+    <div class="form-group">
+        <label>扣分分数</label>
+        <input class="form-control" name="paysocore">
+    </div>
+    <div class="form-group">
+        <label>违章说明</label>
+        <input class="form-control" name="feedesc">
+    </div>
+    
+    <button type="submit" class="btn btn-default">提交</button>
+    <button type="reset" class="btn btn-default">取消</button>
+</form>

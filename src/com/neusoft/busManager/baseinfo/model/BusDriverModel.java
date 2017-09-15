@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.neusoft.busManager.queryinfo.model.BusDayInfoModel;
+import com.neusoft.busManager.queryinfo.model.BusIllegalFeeModel;
 
 //司机信息Model类
 @Alias("BusDriver")
@@ -49,7 +50,8 @@ public class BusDriverModel {
 	
 	//关联车辆日运行信息对象
 		private List<BusDayInfoModel> busdayinfo;
-	
+    //关联车辆违章信息
+		private List<BusIllegalFeeModel> busillegalfee;
 	public int getDriverid() {
 			return driverid;
 		}
@@ -133,6 +135,12 @@ public class BusDriverModel {
 	}
 	public void setBusdayinfo(List<BusDayInfoModel> busdayinfo) {
 		this.busdayinfo = busdayinfo;
+	}
+	public List<BusIllegalFeeModel> getBusillegalfee() {
+		return busillegalfee;
+	}
+	public void setBusillegalfee(List<BusIllegalFeeModel> busillegalfee) {
+		this.busillegalfee = busillegalfee;
 	}
 	
 

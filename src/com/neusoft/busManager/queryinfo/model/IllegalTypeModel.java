@@ -1,5 +1,7 @@
 package com.neusoft.busManager.queryinfo.model;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("IllegalType")
@@ -9,6 +11,8 @@ public class IllegalTypeModel {
 	private String typename;
 	private int payscore;
 	private double payfee;
+	//关联车辆违章信息
+		private List<BusIllegalFeeModel> busillegalfee; 
 	
 	public int getTypeno() {
 		return typeno;
@@ -33,6 +37,12 @@ public class IllegalTypeModel {
 	}
 	public void setPayfee(double payfee) {
 		this.payfee = payfee;
+	}
+	public List<BusIllegalFeeModel> getBusillegalfee() {
+		return busillegalfee;
+	}
+	public void setBusillegalfee(List<BusIllegalFeeModel> busillegalfee) {
+		this.busillegalfee = busillegalfee;
 	}
 	
 	

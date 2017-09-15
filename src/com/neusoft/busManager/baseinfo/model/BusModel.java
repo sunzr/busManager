@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.type.Alias;
 
 import com.neusoft.busManager.queryinfo.model.BusDayInfoModel;
+import com.neusoft.busManager.queryinfo.model.BusIllegalFeeModel;
 
 //车辆Model类
 @Alias("Bus")
@@ -36,6 +37,8 @@ public class BusModel {
 	
 	//关联车辆日运行信息对象
 	private List<BusDayInfoModel> busdayinfo;
+	//关联车辆违章信息
+	private List<BusIllegalFeeModel> busillegalfee;
 	public int getBusid() {
 		return busid;
 	}
@@ -113,6 +116,12 @@ public class BusModel {
 	}
 	public void setBusdayinfo(List<BusDayInfoModel> busdayinfo) {
 		this.busdayinfo = busdayinfo;
+	}
+	public List<BusIllegalFeeModel> getBusillegalfee() {
+		return busillegalfee;
+	}
+	public void setBusillegalfee(List<BusIllegalFeeModel> busillegalfee) {
+		this.busillegalfee = busillegalfee;
 	}
 
 }

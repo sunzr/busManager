@@ -23,11 +23,19 @@
         <association property="busfactory" column="FactoryNo"
         select="com.neusoft.busManager.baseinfo.mapper.IBusFactoryMapper.select"></association>
     </resultMap>
-    
+    <!-- 车辆关联车辆日运行信息 -->
     <resultMap id="BusCollectionResultMap" type="Bus"  extends="BusAssociationResultMap">
     <collection property="busdayinfo" column="BusID"
        select="com.neusoft.busManager.queryinfo.mapper.IBusDayInfoMapper.selectListByBus">
      </collection>
+    </resultMap>
+    
+    <!-- 车辆关联车辆违章类 -->
+    <resultMap id="BusCollectionWithBusIllgealFeeResultMap" type="Bus"  extends="BusCollectionResultMap">
+    <collection property="busillegalfee" column="BusID"
+       select="com.neusoft.busManager.queryinfo.mapper.IBusIllegalFeeMapper.selectListByBus">
+     </collection>
+     
     </resultMap>
     
     <insert id="insert" parameterType="Bus">
@@ -54,7 +62,7 @@
      delete from Bus where BusID=#{busid}
      </delete>
      
-      <select id="select" parameterType="int" resultMap="BusCollectionResultMap">
+      <select id="select" parameterType="int" resultMap="BusCollectionWithBusIllgealFeeResultMap">
           select * from Bus where  BusID=#{busid}
      </select>
      
