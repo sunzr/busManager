@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.feeinfo.mapper.ILaborCostTypeMapper">
+
+	<resultMap id="LaborCostTypeResultMap" type="LaborCostType">
+		<id property="typeno" column="typeno" />
+		<result property="typename" column="typename" />
+	</resultMap>
+
+	<insert id="insert" parameterType="LaborCostType">
+		INSERT INTO
+		LaborCostType(TYPENAME)
+		VALUES(#{typename})
+	</insert>
+
+
+	<update id="update" parameterType="LaborCostType">
+		update LaborCostType set
+		TYPENAME=#{typename}
+		where
+		typeno=#{typeno}
+	</update>
+
+
+
+	<delete id="delete" parameterType="LaborCostType">
+		delete from LaborCostType where
+		typeno=#{typeno}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="LaborCostTypeResultMap">
+		select * from
+		LaborCostType where typeno=#{typeno}
+	</select>
+
+	<select id="selectListByAll" resultMap="LaborCostTypeResultMap">
+		select * from LaborCostType
+	</select>
+
+	<select id="selectListByAllWithPage" resultMap="LaborCostTypeResultMap">
+		select * from
+		LaborCostType
+	</select>
+
+	<select id="selectCountByAll" resultType="int">
+		select count(typeno)
+		from LaborCostType
+	</select>
+	
+	<select id="checkNameExist" parameterType="string" resultType="int">
+		select count(typeno)
+		from LaborCostType
+		<where>
+		  <if test="_parameter !=null">
+		   and typename=#{_parameter}
+		  </if>
+		</where> 
+	</select>
+	
+	
+
+</mapper>
+

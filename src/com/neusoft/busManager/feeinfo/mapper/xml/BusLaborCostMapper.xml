@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.feeinfo.mapper.IBusLaborCostMapper">
+	<!-- 车辆人工费 基本信息映射 -->
+	<resultMap id="BusLaborCostResultMap" type="BusLaborCost">
+		<id property="costno" column="costno" />
+		<result property="costAmount" column="costAmount" />
+		<result property="costDate" column="costDate" />
+		<result property="costDesc" column="costDesc" />
+	</resultMap>
+	<!-- 车辆人工费 关联信息映射 -->
+	<resultMap id="BusLaborCostAssociationResultMap" type="BusLaborCost" extends="BusLaborCostResultMap">
+		<!-- 内嵌式Select方式 -->
+		<association property="costTypeModel" column="CostTypeNo"  select="com.neusoft.busManager.feeinfo.mapper.ILaborCostTypeMapper.select"></association>
+		<association property="busModel" column="BusID"  select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select" ></association>
+		<association property="busDriverModel" column="DriverID"  select="com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper.select" ></association>
+	</resultMap>
+
+	<insert id="insert" parameterType="BusLaborCost">
+		INSERT INTO
+		BusLaborCost(CostTypeNo,BusID,DriverID,CostAmount,CostDate,CostDesc)
+		VALUES(#{costTypeModel.typeno},#{busModel.busid},#{busDriverModel.driverid},#{costAmount},#{costDate},#{costDesc})
+	</insert>
+
+	<update id="update" parameterType="BusLaborCost">  
+		update BusLaborCost set CostTypeNo=#{costTypeModel.typeno},BusID=#{busModel.busid},DriverID=#{busDriverModel.driverid},
+		CostAmount=#{costAmount},CostDate=#{costDate},CostDesc=#{costDesc}
+		where costno=#{costno}
+	</update>
+
+	<delete id="delete" parameterType="BusLaborCost">
+		delete from BusLaborCost where
+		costno=#{costno}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="BusLaborCostAssociationResultMap">
+		select * from
+		BusLaborCost where costno=#{costno}
+	</select>
+
+	<select id="selectListByAll" resultMap="BusLaborCostResultMap">
+		select * from BusLaborCost
+	</select>
+
+	<select id="selectListByAllWithPage" resultMap="BusLaborCostAssociationResultMap">
+		select a.*,b.*,d.*,p.* from BusLaborCost b inner join LaborCostType p on b.costtypeno=p.typeno
+		inner join Bus a on b.busid=a.busid inner join BusDriver d on b.driverid=d.driverid
+	</select>
+
+	<select id="selectCountByAll" resultType="int">
+		select count(costno)
+		from BusLaborCost
+	</select>
+	
+	<select id="checkNameExist" parameterType="string" resultType="int">
+		select count(costno)
+		from BusLaborCost
+		<where>
+		  <if test="_parameter !=null">
+		   and typename=#{_parameter}
+		  </if>
+		</where> 
+	</select>
+	
+	<select id="selectListByCondition"  resultMap="BusLaborCostAssociationResultMap">
+		select * from BusLaborCost  
+		<where>
+		<if test="typeno!=0">
+		   and costtypeno=#{typeno}
+		</if>
+		<if test="busid!=0">
+		   and busid=#{busid}
+		</if>
+		<if test="driverid!=0">
+			and driverid=#{driverid}
+		</if>
+		</where>
+	</select>
+	
+	<!-- 按检索条件取得车辆人工费个数 -->
+	<select id="selectCountByCondition" resultType="_int">
+	    select count(*) from BusLaborCost
+		<where>
+		<if test="typeno!=0">
+		   and costtypeno=#{typeno}
+		</if>
+		<if test="busid!=0">
+		   and busid=#{busid}
+		</if>
+		<if test="driverid!=0">
+			and driverid=#{driverid}
+		</if>
+		</where>
+		
+	</select>
+	
+</mapper>
+

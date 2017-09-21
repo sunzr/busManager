@@ -1,0 +1,39 @@
+<form id="buslaborcostModifyForm" role="form" action="buslaborcost/modify.mvc" method="POST">
+   	<div class="form-group">
+   			<label>人工费支出编号</label>
+            <input class="form-control" name="costno" readonly/>
+     </div>
+    
+    <div class="form-group">
+        <label>支出金额</label>
+        <input class="form-control" name="costAmount">
+    </div>
+    <div class="form-group">
+        <label>支出说明</label>
+        <input class="form-control" name="costDesc">
+    </div>
+    <div class="form-group">
+        <label>支出日期</label>
+        <input type="date" class="form-control" data-date-format="YYYY-MMMM-DD"  name="costDate">
+    </div>
+    <div class="form-group">
+        <label>人工费类型</label>
+        <select class="form-control" name="costTypeModel.typeno">
+        	
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>车辆名称</label>
+        <select class="form-control" name="busModel.busid">
+        </select>
+    </div>
+    <div class="form-group">
+        <label>司机名称</label>
+        <select class="form-control" name="busDriverModel.driverid">
+        	
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">提交</button>
+    <button type="reset" class="btn btn-default">取消</button>
+</form>

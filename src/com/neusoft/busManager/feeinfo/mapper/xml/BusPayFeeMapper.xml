@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.busManager.feeinfo.mapper.IBusPayFeeMapper">
+	<!-- 车辆缴费 基本信息映射 -->
+	<resultMap id="BusPayFeeResultMap" type="BusPayFee">
+		<id property="payno" column="payno" />
+		<result property="payTo" column="payTo" />
+		<result property="payAmount" column="payAmount" />
+		<result property="payDate" column="payDate" />
+		<result property="payDesc" column="payDesc" />
+	</resultMap>
+	<!-- 车辆缴费 关联信息映射 -->
+	<resultMap id="BusPayFeeAssociationResultMap" type="BusPayFee" extends="BusPayFeeResultMap">
+		<!-- 内嵌式Select方式 -->
+		<association property="payTypeModel" column="PayTypeNo"  select="com.neusoft.busManager.feeinfo.mapper.IPayTypeMapper.select"></association>
+		<association property="busModel" column="BusID"  select="com.neusoft.busManager.baseinfo.mapper.IBusMapper.select" ></association>
+		<association property="busDriverModel" column="DriverID"  select="com.neusoft.busManager.baseinfo.mapper.IBusDriverMapper.select" ></association>
+	</resultMap>
+
+	<insert id="insert" parameterType="BusPayFee">
+		INSERT INTO
+		BusPayFee(PayTypeNo,BusID,DriverID,PayTo,PayAmount,PayDate,PayDesc)
+		VALUES(#{payTypeModel.typeno},#{busModel.busid},#{busDriverModel.driverid},#{payTo},#{payAmount},#{payDate},#{payDesc})
+	</insert>
+
+	<update id="update" parameterType="BusPayFee">  
+		update BusPayFee set PayTypeNo=#{payTypeModel.typeno},BusID=#{busModel.busid},DriverID=#{busDriverModel.driverid},
+		PayTo=#{payTo},PayAmount=#{payAmount},PayDate=#{payDate},PayDesc=#{payDesc}
+		where payno=#{payno}
+	</update>
+
+	<delete id="delete" parameterType="BusPayFee">
+		delete from BusPayFee where
+		payno=#{payno}
+	</delete>
+
+	<select id="select" parameterType="int" resultMap="BusPayFeeAssociationResultMap">
+		select * from
+		BusPayFee where payno=#{payno}
+	</select>
+
+	<select id="selectListByAll" resultMap="BusPayFeeResultMap">
+		select * from BusPayFee
+	</select>
+
+	<select id="selectListByAllWithPage" resultMap="BusPayFeeAssociationResultMap">
+		select a.*,b.*,d.*,p.* from BusPayFee b inner join PayType p on b.paytypeno=p.typeno
+		inner join Bus a on b.busid=a.busid inner join BusDriver d on b.driverid=d.driverid
+	</select>
+
+	<select id="selectCountByAll" resultType="int">
+		select count(payno)
+		from BusPayFee
+	</select>
+	
+	<select id="checkNameExist" parameterType="string" resultType="int">
+		select count(payno)
+		from BusPayFee
+		<where>
+		  <if test="_parameter !=null">
+		   and typename=#{_parameter}
+		  </if>
+		</where> 
+	</select>
+	
+	<select id="selectListByCondition"  resultMap="BusPayFeeAssociationResultMap">
+		select * from BusPayFee 
+		<where>
+		<if test="typeno!=0">
+		   and paytypeno=#{typeno}
+		</if>
+		<if test="busid!=0">
+		   and busid=#{busid}
+		</if>
+		<if test="driverid!=0">
+			and driverid=#{driverid}
+		</if>
+		</where>
+	</select>
+	
+	<!-- 按检索条件取得车辆缴费个数 -->
+	<select id="selectCountByCondition" resultType="_int">
+	    select count(*) from BusPayFee
+		<where>
+		<if test="typeno!=0">
+		   and paytypeno=#{typeno}
+		</if>
+		<if test="busid!=0">
+		   and busid=#{busid}
+		</if>
+		<if test="driverid!=0">
+			and driverid=#{driverid}
+		</if>
+		</where>
+		
+	</select>
+	
+</mapper>
+
